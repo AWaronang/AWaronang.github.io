@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-20T07:27:04.280Z</updated>
+  <updated>2021-02-20T09:39:28.578Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搭建github图床</title>
+    <link href="http://example.com/2021/02/20/%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/"/>
+    <id>http://example.com/2021/02/20/%E6%90%AD%E5%BB%BAgithub%E5%9B%BE%E5%BA%8A/</id>
+    <published>2021-02-20T09:39:03.000Z</published>
+    <updated>2021-02-20T09:39:28.578Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="搭建图床"><a href="#搭建图床" class="headerlink" title="搭建图床"></a>搭建图床</h3><p>使用PicGo+Github搭建图床</p><h3 id="下载PIcGo"><a href="#下载PIcGo" class="headerlink" title="下载PIcGo"></a>下载<a href="https://github.com/Molunerfinn/picgo/releases">PIcGo</a></h3><h3 id="开始"><a href="#开始" class="headerlink" title="开始:"></a>开始:</h3><h4 id="1-Github配置"><a href="#1-Github配置" class="headerlink" title="1.Github配置"></a>1.Github配置</h4><p><strong>打开<a href="https://github.com/">GIthub</a></strong></p><p>没有用户的话就自己创建一个用户</p><p>创建一个新的仓库</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220161449.png"></p><p>这里面的名字可以随便填写，仓库一定要为公开,然后点击创建即可</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220161608.png"></p><p>进入设置，再头像那里，点击就会出现这个，然后点击设置(Settings)</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220161753.png"></p><p>然后找到Developer settings</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220161928.png"></p><p>点击里面的Personal access tokens，然后再里面点击创建新的token</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220162159.png"></p><p>Note这里随便填写，下面的repo那个记得勾选,然后直接点创建</p><p><img src="https://raw.githubusercontent.com/hermit6663/Picture/master/img/20210220162319.png"></p><p>把这里的token复制下来，要记住，等下重新打开就没有了</p><p><img src="C:\Users\82258\AppData\Roaming\Typora\typora-user-images\image-20210220162505054.png" alt="image-20210220162505054"></p><h4 id="2-PIcGo配置"><a href="#2-PIcGo配置" class="headerlink" title="2.PIcGo配置"></a>2.PIcGo配置</h4><p><img src="C:\Users\82258\AppData\Roaming\Typora\typora-user-images\image-20210220162813854.png" alt="image-20210220162813854"></p><p>第一个设置仓库名就是你的github的仓库名字</p><p>第二个设置你的分支名字设置master就好了</p><p>第三个设置Token就是你刚刚保存的</p><p>第四个就是存储路径</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;搭建图床&quot;&gt;&lt;a href=&quot;#搭建图床&quot; class=&quot;headerlink&quot; title=&quot;搭建图床&quot;&gt;&lt;/a&gt;搭建图床&lt;/h3&gt;&lt;p&gt;使用PicGo+Github搭建图床&lt;/p&gt;
+&lt;h3 id=&quot;下载PIcGo&quot;&gt;&lt;a href=&quot;#下载PIcGo&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Python</title>
