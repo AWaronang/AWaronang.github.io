@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
-
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"wangzhr.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"wangzhr.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="本篇文章介绍了如何在MySQL中创建用户、授权、创建表格，并通过MySQL-Proxy配置实现数据库的读写分离，优化性能和提高可用性。">
 <meta property="og:type" content="article">
@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/06/22/3GZMShyPorLwiJv.webp">
 <meta property="og:image" content="https://s2.loli.net/2023/06/15/NQTwmkDghy9GWiO.png">
 <meta property="article:published_time" content="2023-09-14T13:02:55.000Z">
-<meta property="article:modified_time" content="2023-09-16T07:24:09.896Z">
+<meta property="article:modified_time" content="2023-09-25T01:11:10.375Z">
 <meta property="article:author" content="Mark Wang">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -131,23 +131,23 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
   <div class="links-of-author animated">
       <span class="links-of-author-item">
-        <a href="https://github.com/AWaronang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AWaronang" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FXYXJvbmFuZw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;AWaronang"><i class="fab fa-github fa-fw"></i>GitHub</span>
       </span>
       <span class="links-of-author-item">
-        <a href="mailto:wangzhongren03@outlook.com" title="E-Mail → mailto:wangzhongren03@outlook.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <span class="exturl" data-url="bWFpbHRvOndhbmd6aG9uZ3JlbjAzQG91dGxvb2suY29t" title="E-Mail → mailto:wangzhongren03@outlook.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
       </span>
   </div>
 
@@ -208,7 +208,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-16 15:24:09" itemprop="dateModified" datetime="2023-09-16T15:24:09+08:00">2023-09-16</time>
+      <time title="修改时间：2023-09-25 09:11:10" itemprop="dateModified" datetime="2023-09-25T09:11:10+08:00">2023-09-25</time>
     </span>
 
   
@@ -218,7 +218,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -238,24 +238,27 @@
     
     <div class="post-body" itemprop="articleBody"><h3 id="MySQL基本教程"><a href="#MySQL基本教程" class="headerlink" title="MySQL基本教程"></a>MySQL基本教程</h3><h4 id="增加用户phpadmin并完成授权"><a href="#增加用户phpadmin并完成授权" class="headerlink" title="增加用户phpadmin并完成授权"></a>增加用户<code>phpadmin</code>并完成授权</h4><ol>
 <li><p>创建数据库用户<code>phpadmin</code>可以从网站服务器(192.168.30.21)登录数据库服务器</p>
-<p><code>create user &#39;phpadmin&#39;@&#39;192.168.30.21&#39; identified by &#39;000000&#39;;</code></p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create user &#39;phpadmin&#39;@&#39;192.168.30.21&#39; identified by &#39;000000&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
 </li>
 <li><p>为数据库用户<code>phpadmin</code>授权：可以读写store库</p>
-<p><code>grant all privileges on store.* to &#39;phpadmin&#39;@&#39;192.168.30.21&#39;; </code></p>
-<p>如果想给store库下的goods表权限的话只需要把*改成goods就可以了，这里的<code>*</code>代表这store库下的全部表</p>
-<p><code>grant all privileges on store.goods to &#39;phpadmin&#39;@&#39;192.168.30.21&#39;;</code></p>
-</li>
-</ol>
-<span id="more"></span>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">grant all privileges on store.* to &#39;phpadmin&#39;@&#39;192.168.30.21&#39;; <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
+
+
+<p>如果想给store库下的goods表权限的话只需要把*改成goods就可以了，这里的<code>*</code>代表这store库下的全部表</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">grant all privileges on store.goods to &#39;phpadmin&#39;@&#39;192.168.30.21&#39;;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+</ol>
 <h4 id="创建Table"><a href="#创建Table" class="headerlink" title="创建Table"></a>创建Table</h4><p>在给表中插入数据的前提是创建好表才可以往表中插入数据</p>
 <ol>
 <li><p>创建table(给store 库下创建名为goods的表)</p>
-<p><code>create table store.goods(gid char(32),gname char(32),gprice decimal(9,2));</code></p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">create table store.goods(gid char(32),gname char(32),gprice decimal(9,2));<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
 </li>
 <li><p>给goods表中插入数据</p>
-<p><code>insert into store.goods values(&#39;001&#39;,&#39;apple&#39;,&#39;11&#39;);</code></p>
-</li>
+<pre class="line-numbers language-mariadb" data-language="mariadb"><code class="language-mariadb">insert into store.goods values(&#39;001&#39;,&#39;apple&#39;,&#39;11&#39;);<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ol>
 <h3 id="MySQL读写分离"><a href="#MySQL读写分离" class="headerlink" title="MySQL读写分离"></a>MySQL读写分离</h3><h4 id="架构图"><a href="#架构图" class="headerlink" title="架构图"></a>架构图</h4><p><img src="https://s2.loli.net/2023/06/22/3GZMShyPorLwiJv.webp"></p>
 <h4 id="MySQL读写分离概念"><a href="#MySQL读写分离概念" class="headerlink" title="MySQL读写分离概念"></a>MySQL读写分离概念</h4><p>MYSQL读写分离的原理其实就是让Master数据库处理事务性增、删除、修改、更新操作（CREATE、INSERT、UPDATE、DELETE），而让Slave数据库处理SELECT操作，MYSQL读写分离前提是基于MYSQL主从复制，这样可以保证在Master上修改数据，Slave同步之后，WEB应用可以读取到Slave端的数据。</p>
@@ -289,7 +292,7 @@
 <td>192.168.30.93</td>
 </tr>
 </tbody></table>
-<p>下载<code>mysql-proxy</code>使用<a target="_blank" rel="noopener" href="https://downloads.mysql.com/archives/proxy/?spm=a2c6h.12873639.article-detail.6.3255c98a05cY9H#downloads">MySQL-Proxy</a></p>
+<p>下载<code>mysql-proxy</code>使用<span class="exturl" data-url="aHR0cHM6Ly9kb3dubG9hZHMubXlzcWwuY29tL2FyY2hpdmVzL3Byb3h5Lz9zcG09YTJjNmguMTI4NzM2MzkuYXJ0aWNsZS1kZXRhaWwuNi4zMjU1Yzk4YTA1Y1k5SCNkb3dubG9hZHM=">MySQL-Proxy<i class="fa fa-external-link-alt"></i></span></p>
 <p>注意：要在Master和Slave数据库里面给phpadmin用户权限</p>
 <p>例:<code>grant all privileges on store.goods to &#39;phpadmin&#39;@&#39;192.168.30.21&#39;;  </code>  </p>
 <p>其中的登录IP为你的MySQL-proxy服务器的IP</p>
@@ -302,38 +305,61 @@
 <ul>
 <li>解压到指定目录</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf mysql-proxy-0.8.5-linux-glibc2.3-x86-64bit.tar.gz</span><br><span class="line">mv mysql-proxy-0.8.5-linux-glibc2.3-x86-64bit /usr/local/mysql-proxy</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> mysql-proxy-0.8.5-linux-glibc2.3-x86-64bit.tar.gz
+<span class="token function">mv</span> mysql-proxy-0.8.5-linux-glibc2.3-x86-64bit /usr/local/mysql-proxy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>配置mysql-proxy</p>
 <ul>
 <li>执行命令</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql-proxy</span><br><span class="line">mkdir lua #创建脚本存放目录</span><br><span class="line">mkdir logs #创建日志目录</span><br><span class="line">cp share/doc/mysql-proxy/rw-splitting.lua ./lua #复制读写分离配置文件</span><br><span class="line">cp share/doc/mysql-proxy/admin-sql.lua ./lua #复制管理脚本</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /usr/local/mysql-proxy
+<span class="token function">mkdir</span> lua <span class="token comment">#创建脚本存放目录</span>
+<span class="token function">mkdir</span> logs <span class="token comment">#创建日志目录</span>
+<span class="token function">cp</span> share/doc/mysql-proxy/rw-splitting.lua ./lua <span class="token comment">#复制读写分离配置文件</span>
+<span class="token function">cp</span> share/doc/mysql-proxy/admin-sql.lua ./lua <span class="token comment">#复制管理脚本</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li>配置文件(创建&#x2F;etc&#x2F;mysql-proxy.cnf配置文件)</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[mysql-proxy]</span><br><span class="line">user=root  #运行mysql-proxy的用户</span><br><span class="line">admin-username=root  #主从mysql共有的用户</span><br><span class="line">admin-password=000000 #用户的密码</span><br><span class="line">proxy-address=192.168.30.93  #mysql-proxy运行ip和端口,不加端口默认4040</span><br><span class="line">proxy-backend-addresses=192.168.30.91  #指定后端主master写入数据</span><br><span class="line">proxy-read-only-backend-addresses=192.168.30.92 #指定后端从slave读取数据</span><br><span class="line">proxy-lua-script=/usr/local/mysql-proxy/lua/rw-splitting.lua #指定lua脚本</span><br><span class="line">admin-lua-script=/usr/local/mysql-proxy/lua/admin-sql.lua</span><br><span class="line">log-file=/usr/local/mysql-proxy/logs/mysql-proxy.log</span><br><span class="line">daemon=true #以守护进程方式运行</span><br><span class="line">log-level=info  #定义log日志级别，由高到低分别有(error|warning|info|message|debug)</span><br><span class="line">keepalive=true  #mysql-proxy崩溃时，尝试重启</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token punctuation">[</span>mysql<span class="token punctuation">-</span>proxy<span class="token punctuation">]</span>
+user=root  <span class="token comment">#运行mysql-proxy的用户</span>
+admin<span class="token punctuation">-</span>username=root  <span class="token comment">#主从mysql共有的用户</span>
+admin<span class="token punctuation">-</span>password=000000 <span class="token comment">#用户的密码</span>
+proxy<span class="token punctuation">-</span>address=192.168.30.93  <span class="token comment">#mysql-proxy运行ip和端口,不加端口默认4040</span>
+proxy<span class="token punctuation">-</span>backend<span class="token punctuation">-</span>addresses=192.168.30.91  <span class="token comment">#指定后端主master写入数据</span>
+proxy<span class="token punctuation">-</span>read<span class="token punctuation">-</span>only<span class="token punctuation">-</span>backend<span class="token punctuation">-</span>addresses=192.168.30.92 <span class="token comment">#指定后端从slave读取数据</span>
+proxy<span class="token punctuation">-</span>lua<span class="token punctuation">-</span>script=/usr/local/mysql<span class="token punctuation">-</span>proxy/lua/rw<span class="token punctuation">-</span>splitting.lua <span class="token comment">#指定lua脚本</span>
+admin<span class="token punctuation">-</span>lua<span class="token punctuation">-</span>script=/usr/local/mysql<span class="token punctuation">-</span>proxy/lua/admin<span class="token punctuation">-</span>sql.lua
+log<span class="token punctuation">-</span>file=/usr/local/mysql<span class="token punctuation">-</span>proxy/logs/mysql<span class="token punctuation">-</span>proxy.log
+daemon=true <span class="token comment">#以守护进程方式运行</span>
+log<span class="token punctuation">-</span>level=info  <span class="token comment">#定义log日志级别，由高到低分别有(error|warning|info|message|debug)</span>
+keepalive=true  <span class="token comment">#mysql-proxy崩溃时，尝试重启</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>复制一定要删除全部注释，要不然会有报错，最好把注释前的空格也给删了</p>
 <p>然后设置<code>mysql-proxy.cnf</code>权限:<code>chmod 660 /etc/mysql-proxy.cnf</code>(所属用户和所属组有读写权限)</p>
 </li>
 <li><p>配置读写分离脚本</p>
 <p><code>vi /usr/local/mysql-proxy/lua/rw-splitting.lua</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if not proxy.global.config.rwsplit then</span><br><span class="line"> proxy.global.config.rwsplit = &#123;</span><br><span class="line">  min_idle_connections = 1, #默认超过4个连接数时，才开始读写分离，改为1</span><br><span class="line">  max_idle_connections = 1, #默认8，改为1</span><br><span class="line">  is_debug = false</span><br><span class="line"> &#125;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> not proxy.global.config.rwsplit <span class="token keyword">then</span>
+ proxy.global.config.rwsplit <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  min_idle_connections <span class="token operator">=</span> <span class="token number">1</span>, <span class="token comment">#默认超过4个连接数时，才开始读写分离，改为1</span>
+  max_idle_connections <span class="token operator">=</span> <span class="token number">1</span>, <span class="token comment">#默认8，改为1</span>
+  is_debug <span class="token operator">=</span> <span class="token boolean">false</span>
+ <span class="token punctuation">&#125;</span>
+end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </li>
 <li><p>启动MySQL-proxy</p>
 </li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/mysql-proxy/bin/mysql-proxy --defaults-file=/etc/mysql-proxy.cnf</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">/usr/local/mysql-proxy/bin/mysql-proxy --defaults-file<span class="token operator">=</span>/etc/mysql-proxy.cnf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <ol start="5">
 <li>验证是否启动成功</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tupln | grep 4000</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">netstat</span> <span class="token parameter variable">-tupln</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">4000</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>​	关闭命令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall -9 mysql-proxy  #-9 为强制杀掉进程</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">killall</span> <span class="token parameter variable">-9</span> mysql-proxy  <span class="token comment">#-9 为强制杀掉进程</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
 
@@ -427,10 +453,10 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14 分钟</span>
+    <span title="站点阅读时长">16 分钟</span>
   </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
   </div>
 
     </div>
@@ -441,6 +467,8 @@
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
   </div>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL0FXYXJvbmFuZw==" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>

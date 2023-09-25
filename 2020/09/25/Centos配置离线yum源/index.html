@@ -20,28 +20,36 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"wangzhr.top","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.1","exturl":true,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="这是我在推送博客的时候发现的报错">
+    <meta name="description" content="我们在Llinux系统中安装插件一般都是使用yum来进行安装插件(也可以通过rpm包来安装但是我们现在用的最多的是yum安装)，yum安装可以联网安装和离线安装，离线安装就是不能连通外网的时候来进行安装插件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git出现push报错">
-<meta property="og:url" content="https://wangzhr.top/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/index.html">
+<meta property="og:title" content="Centos配置离线yum源">
+<meta property="og:url" content="https://wangzhr.top/2020/09/25/Centos%E9%85%8D%E7%BD%AE%E7%A6%BB%E7%BA%BFyum%E6%BA%90/index.html">
 <meta property="og:site_name" content="Wang&#39;s Notes">
-<meta property="og:description" content="这是我在推送博客的时候发现的报错">
+<meta property="og:description" content="我们在Llinux系统中安装插件一般都是使用yum来进行安装插件(也可以通过rpm包来安装但是我们现在用的最多的是yum安装)，yum安装可以联网安装和离线安装，离线安装就是不能连通外网的时候来进行安装插件">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-14T12:53:53.000Z">
-<meta property="article:modified_time" content="2023-09-16T07:32:11.370Z">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/cXRp2OVnSwAaxDM.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/GLUcbP4E6VehzCR.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/TGnMJgWPmv3BOY7.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/bJHvcZ541zPBSeu.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/2DH65u4t8r9mIeB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/EIpeQ65ihu1Nbw3.png">
+<meta property="og:image" content="https://s2.loli.net/2023/06/11/jvzorcYP4ku12T8.png">
+<meta property="article:published_time" content="2020-09-25T02:48:57.000Z">
+<meta property="article:modified_time" content="2023-09-25T00:49:56.979Z">
 <meta property="article:author" content="Mark Wang">
-<meta property="article:tag" content="Git">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/06/11/cXRp2OVnSwAaxDM.png">
 
 
-<link rel="canonical" href="https://wangzhr.top/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/">
+<link rel="canonical" href="https://wangzhr.top/2020/09/25/Centos%E9%85%8D%E7%BD%AE%E7%A6%BB%E7%BA%BFyum%E6%BA%90/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangzhr.top/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/","path":"2023/09/14/Git出现push报错/","title":"Git出现push报错"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangzhr.top/2020/09/25/Centos%E9%85%8D%E7%BD%AE%E7%A6%BB%E7%BA%BFyum%E6%BA%90/","path":"2020/09/25/Centos配置离线yum源/","title":"Centos配置离线yum源"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Git出现push报错 | Wang's Notes</title>
+<title>Centos配置离线yum源 | Wang's Notes</title>
   
 
 
@@ -168,7 +176,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangzhr.top/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/">
+    <link itemprop="mainEntityOfPage" href="https://wangzhr.top/2020/09/25/Centos%E9%85%8D%E7%BD%AE%E7%A6%BB%E7%BA%BFyum%E6%BA%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -181,12 +189,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Git出现push报错 | Wang's Notes">
-      <meta itemprop="description" content="这是我在推送博客的时候发现的报错">
+      <meta itemprop="name" content="Centos配置离线yum源 | Wang's Notes">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Git出现push报错
+          Centos配置离线yum源
         </h1>
 
         <div class="post-meta-container">
@@ -197,14 +205,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-09-14 20:53:53" itemprop="dateCreated datePublished" datetime="2023-09-14T20:53:53+08:00">2023-09-14</time>
+      <time title="创建时间：2020-09-25 10:48:57" itemprop="dateCreated datePublished" datetime="2020-09-25T10:48:57+08:00">2020-09-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-16 15:32:11" itemprop="dateModified" datetime="2023-09-16T15:32:11+08:00">2023-09-16</time>
+      <time title="修改时间：2023-09-25 08:49:56" itemprop="dateModified" datetime="2023-09-25T08:49:56+08:00">2023-09-25</time>
     </span>
 
   
@@ -214,45 +222,65 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>90</span>
+      <span>447</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
-            <div class="post-description">这是我在推送博客的时候发现的报错</div>
         </div>
       </header>
 
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>当Git Bash 使用push的时候出现了以下的这个报错的，可以尝试下使用一下命令</p>
-<p><code>How to solve this problem of &quot;! [rejected] master -&gt; master (fetch first)&quot;</code></p>
-<pre class="line-numbers language-none"><code class="language-none">First Do this ...
-
-git fetch origin master
-git merge  master
-
-Then, do this ...
-
-git fetch origin master:tmp
-git rebase tmp
-git push origin HEAD:master
-git branch -D tmp
-
-Now everything works well.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <div class="post-body" itemprop="articleBody"><p>我们在Llinux系统中安装插件一般都是使用yum来进行安装插件(也可以通过rpm包来安装但是我们现在用的最多的是yum安装)，yum安装可以联网安装和离线安装，离线安装就是不能连通外网的时候来进行安装插件</p>
 <span id="more"></span>
 
-<p>是在GitHub Gist中有人提出的</p>
-<blockquote>
-<p> <span class="exturl" data-url="aHR0cHM6Ly9naXN0LmdpdGh1Yi5jb20vc2hhcmJlbDkzL2ViY2YwYjE4NzgyNTczZjRkOTVmODBjYWEzYzg0YWNi">GitHub Gist问题帖<i class="fa fa-external-link-alt"></i></span></p>
-</blockquote>
+<p><strong>开始:</strong></p>
+<p>1.登录虚拟机</p>
+<p><img src="https://s2.loli.net/2023/06/11/cXRp2OVnSwAaxDM.png"></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /etc/yum.repos.d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://s2.loli.net/2023/06/11/GLUcbP4E6VehzCR.png"></p>
+<p>可以看到有很多文件我们都不需要这些文件，可以通过mv命令来剪切走</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mv</span> /etc/yum.repos.d/* /opt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个时候进入yum.repos.d这个文件夹就会发现东西没有了</p>
+<p><img src="https://s2.loli.net/2023/06/11/TGnMJgWPmv3BOY7.png"></p>
+<p>这个时候我们输入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> local.repo   //这个local这个名称是随便的可以不叫loacl但是后面结尾一定是.repo
+输入完这个命令就会到这个界面<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><img src="https://s2.loli.net/2023/06/11/bJHvcZ541zPBSeu.png"></p>
+<p>这个时候按一下i键进入编辑模式输入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>centos<span class="token punctuation">]</span>   //这个地方也是不一定要叫centos也可以叫别的比如<span class="token punctuation">[</span>aaa<span class="token punctuation">]</span>
+<span class="token assign-left variable">name</span><span class="token operator">=</span>centos  //这个地方是也name<span class="token operator">=</span>加你想加的
+<span class="token assign-left variable">baseurl</span><span class="token operator">=</span>file:///mnt/cd  //这个mnt/cd是你的挂载点0
+<span class="token assign-left variable">enabled</span><span class="token operator">=</span><span class="token number">1</span>   //这里就按照这个打就好了，意思是开启
+<span class="token assign-left variable">gpgcheck</span><span class="token operator">=</span><span class="token number">0</span>  //这里也是按照这个打，意思是关闭开机自启动
+然后按Esc键输入:wq进行保存并退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>然后我们创建我们上面配置文件打的那个&#x2F;mnt&#x2F;cd这个目录</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> /mnt/cd<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>然后我们进行挂载</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mount</span> /dev/sr0 /mnt/cd  //这个是将光盘挂载到/mnt/cd这个目录上<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在我们使用&#x2F;dev&#x2F;sr0这个的时候要看看VMware中这个是否连接</p>
+<p><img src="https://s2.loli.net/2023/06/11/2DH65u4t8r9mIeB.png"></p>
+<p>挂载成功的命令反馈是</p>
+<p><img src="https://s2.loli.net/2023/06/11/EIpeQ65ihu1Nbw3.png"></p>
+<p>然后我们试着yum安装一个插件</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> <span class="token function">vim</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://s2.loli.net/2023/06/11/jvzorcYP4ku12T8.png"></p>
+<p>出现这个就是成功了</p>
 
     </div>
 
@@ -280,20 +308,17 @@ Now everything works well.<span aria-hidden="true" class="line-numbers-rows"><sp
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/09/25/Centos%E9%85%8D%E7%BD%AE%E7%A6%BB%E7%BA%BFyum%E6%BA%90/" rel="prev" title="Centos配置离线yum源">
-                  <i class="fa fa-angle-left"></i> Centos配置离线yum源
-                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" rel="next" title="MySQL读写分离">
-                  MySQL读写分离 <i class="fa fa-angle-right"></i>
+                <a href="/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/" rel="next" title="Git出现push报错">
+                  Git出现push报错 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
