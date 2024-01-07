@@ -24,7 +24,7 @@
     <meta name="description" content="本篇文章介绍了如何在MySQL中创建用户、授权、创建表格，并通过MySQL-Proxy配置实现数据库的读写分离，优化性能和提高可用性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL读写分离">
-<meta property="og:url" content="https://wangzhr.top/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/index.html">
+<meta property="og:url" content="https://wangzhr.top/20230914/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/index.html">
 <meta property="og:site_name" content="Wang&#39;s Notes">
 <meta property="og:description" content="本篇文章介绍了如何在MySQL中创建用户、授权、创建表格，并通过MySQL-Proxy配置实现数据库的读写分离，优化性能和提高可用性。">
 <meta property="og:locale" content="zh_CN">
@@ -38,11 +38,11 @@
 <meta name="twitter:image" content="https://wangzhrbuckets.s3.bitiful.net/picture/2023/09/202309281327149.png">
 
 
-<link rel="canonical" href="https://wangzhr.top/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">
+<link rel="canonical" href="https://wangzhr.top/20230914/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangzhr.top/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/","path":"/2023/09/14/MySQL读写分离/","title":"MySQL读写分离"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://wangzhr.top/20230914/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/","path":"20230914/MySQL读写分离/","title":"MySQL读写分离"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>MySQL读写分离 | Wang's Notes</title>
@@ -173,7 +173,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://wangzhr.top/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">
+    <link itemprop="mainEntityOfPage" href="https://wangzhr.top/20230914/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -213,7 +213,7 @@
     </span>
 
   
-    <span id="/2023/09/14/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="post-meta-item twikoo_visitors" data-flag-title="MySQL读写分离" title="阅读次数">
+    <span id="/20230914/MySQL%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="post-meta-item twikoo_visitors" data-flag-title="MySQL读写分离" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -234,7 +234,7 @@
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -418,12 +418,12 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2023/09/14/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/" rel="prev" title="Git出现push报错">
+                <a href="/20230914/Git%E5%87%BA%E7%8E%B0push%E6%8A%A5%E9%94%99/" rel="prev" title="Git出现push报错">
                   <i class="fa fa-angle-left"></i> Git出现push报错
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/14/%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%A5%97%E4%BB%B6%E6%BA%90%E6%8F%90%E7%A4%BA%E6%97%A0%E6%95%88%E4%BD%8D%E7%BD%AE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" rel="next" title="群晖添加第三方套件源提示无效位置的解决方法">
+                <a href="/20230914/%E7%BE%A4%E6%99%96%E6%B7%BB%E5%8A%A0%E7%AC%AC%E4%B8%89%E6%96%B9%E5%A5%97%E4%BB%B6%E6%BA%90%E6%8F%90%E7%A4%BA%E6%97%A0%E6%95%88%E4%BD%8D%E7%BD%AE%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/" rel="next" title="群晖添加第三方套件源提示无效位置的解决方法">
                   群晖添加第三方套件源提示无效位置的解决方法 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -463,7 +463,7 @@ end<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7 分钟</span>
+    <span title="站点阅读时长">29 分钟</span>
   </span>
 </div>
   <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZw==">NexT.Gemini</span> 强力驱动
