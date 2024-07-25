@@ -9,8 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="pseudowang" />
-  <meta property="og:url" content="https://wangzhr.top/posts/deploy-rss-service-on-the-server/" />
-  <link rel="canonical" href="https://wangzhr.top/posts/deploy-rss-service-on-the-server/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
+  <meta property="og:url" content="https://wangzhr.top/tags/daily/" />
+  <link rel="canonical" href="https://wangzhr.top/tags/daily/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
   <link rel="icon" href="/images/avatar.png" />
   <link rel="shortcut" href="/images/avatar.png" /><link rel="alternate" type="application/atom+xml" href="https://wangzhr.top/index.xml" title="Pseudowang">
 
@@ -22,10 +22,10 @@
            "@type": "WebPage",
            "@id": "https:\/\/wangzhr.top\/"
       },
-      "articleSection" : "posts",
-      "name" : "在服务器部署RSS服务",
-      "headline" : "在服务器部署RSS服务",
-      "description" : "步骤: 系统为：Ubuntu 20.04\n安装Docker Engine 部署RSS服务 ",
+      "articleSection" : "tags",
+      "name" : "Daily",
+      "headline" : "Daily",
+      "description" : "",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -33,19 +33,17 @@
       "accountablePerson" : "",
       "copyrightHolder" : "",
       "copyrightYear" : "2023",
-      "datePublished": "2023-09-14 21:05:37 \u002b0800 CST",
-      "dateModified" : "2023-09-14 21:05:37 \u002b0800 CST",
-      "url" : "https:\/\/wangzhr.top\/posts\/deploy-rss-service-on-the-server\/",
-      "keywords" : [ "Tools","Notes", ]
+      "datePublished": "2023-12-30 16:09:11 \u002b0800 CST",
+      "dateModified" : "2023-12-30 16:09:11 \u002b0800 CST",
+      "url" : "https:\/\/wangzhr.top\/tags\/daily\/",
+      "keywords" : [  ]
   }
 </script>
-<title>在服务器部署RSS服务</title>
-  <meta property="og:title" content="在服务器部署RSS服务" />
+<title>Daily</title>
+  <meta property="og:title" content="Daily" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="步骤: 系统为：Ubuntu 20.04
-安装Docker Engine 部署RSS服务 " />
-  <meta name="description" content="步骤: 系统为：Ubuntu 20.04
-安装Docker Engine 部署RSS服务 " />
+  <meta property="og:description" content="" />
+  <meta name="description" content="" />
   <meta property="og:locale" content="en-us" /><meta property="og:image" content="/images/avatar.png" />
   
 
@@ -73,11 +71,10 @@
 
 
 <body>
-  <article class="post " id="article">
+  <article class="posts">
     <div class="row">
       <div class="col-xs-12">
-        <div class="site-header">
-          
+        
 <header>
   <div class="header-title">
     <a href="/"
@@ -106,180 +103,29 @@
 </div>
 <div class="header-line"></div>
 
-        </div>
-        <header class="post-header">
-          <h1 class="post-title">在服务器部署RSS服务</h1>
-          
-          <div class="row post-desc">
-            <div class="col-xs-6">
-              
-              <time class="post-date" datetime="2023-09-14 21:05:37 CST">
-                2023-09-14
-              </time>
-              
-            </div>
-            <div class="col-xs-6">
-              
-              <div class="post-author">
-                <a target="_blank" href="">@pseudowang</a>
+
+        <h1 class="taxonomy-term">Daily</h1>
+        <div id="posts-list">
+          <section>
+            <h1 class="site-date-catalog">2023</h1>
+
+            
+            <div class="row posts-line">
+              <div class="posts-date col-xs-2">
+                <time datetime="2023-12-30 16:09:11 CST">12-30</time> 
               </div>
-              
+              <div class="posts-title col-xs-10">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="/daily/summary-of-2023/">2023年总结</a>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+            
+          </section>
           
-        </header>
-
-        <div class="post-content markdown-body">
-          
-          <h3 id="步骤">步骤:</h3>
-<p>系统为：Ubuntu 20.04</p>
-<ol>
-<li>安装Docker Engine</li>
-<li>部署RSS服务</li>
-</ol>
-<h3 id="1-安装docker-engine">1. 安装Docker Engine</h3>
-<p>使用apt存储库进行安装</p>
-<h4 id="设置存储库">设置存储库</h4>
-<ol>
-<li>
-<p>更新软件包索引并安装<code>apt</code>软件包以运行<code>apt</code>通过HTTPS使用存储库:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo apt-get update
-</span></span><span style="display:flex;"><span>$ sudo apt-get install ca-certificates curl gnupg
-</span></span></code></pre></div></li>
-<li>
-<p>添加Docker 的官方 GPG 密钥</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo install -m <span style="color:#ae81ff">0755</span> -d /etc/apt/keyrings
-</span></span><span style="display:flex;"><span>$curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-</span></span><span style="display:flex;"><span>$sudo chmod a+r /etc/apt/keyrings/docker.gpg
-</span></span></code></pre></div></li>
-<li>
-<p>使用一下命令设置存储库</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ echo <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  <span style="color:#e6db74">&#34;deb [arch=&#34;</span><span style="color:#66d9ef">$(</span>dpkg --print-architecture<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;</span><span style="color:#66d9ef">$(</span>. /etc/os-release <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;</span>$VERSION_CODENAME<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; stable&#34;</span> | <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
-</span></span></code></pre></div></li>
-</ol>
-<h4 id="安装docker-engine">安装Docker Engine</h4>
-<ol>
-<li>
-<p>更新<code>apt</code>包索引:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo apt-get update
-</span></span></code></pre></div></li>
-<li>
-<p>安装Docker Engine、containerd 和Docker Compose</p>
-<p>要安装最新版本，运行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-</span></span></code></pre></div></li>
-<li>
-<p>通过运行<code>hello-world</code>镜像验证 Docker Engine 安装是否成功</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker run hello-world
-</span></span></code></pre></div><p>此命令下载测试镜像并在 container 中运行它。当 container 运行时，它会打印一条确认消息并退出</p>
-</li>
-</ol>
-<h3 id="2-部署rss服务">2. 部署RSS服务</h3>
-<h4 id="docker-compose-部署">Docker Compose 部署</h4>
-<ol>
-<li>
-<p>下载 <a href="https://github.com/DIYgod/RSSHub/blob/master/docker-compose.yml">docker-compose.yml</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo wget https://raw.githubusercontent.com/DIYgod/RSSHub/master/docker-compose.yml
-</span></span></code></pre></div></li>
-<li>
-<p>检查有无需要修改的配置(映射端口啥的)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo vi docker-compose.yml
-</span></span></code></pre></div></li>
-<li>
-<p>创建 volume 持久化 Redis 缓存</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker volume create redis-data
-</span></span></code></pre></div></li>
-<li>
-<p>启动</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker-compose up -d 
-</span></span></code></pre></div></li>
-</ol>
-<h4 id="docker-部署">Docker 部署</h4>
-<ol>
-<li>
-<p>运行下面的命令下载 RSSHub 镜像</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker pull diygod/rsshub
-</span></span></code></pre></div></li>
-<li>
-<p>然后运行 RSSHub 即可</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker run -d --name rsshub -p 1200:1200 diygod/rsshub
-</span></span></code></pre></div><p>在浏览器中打开 http://IP:1200/</p>
-<p>可以使用下面的命令来关闭 RSSHub</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo docker stop rsshub
-</span></span></code></pre></div></li>
-</ol>
-<h4 id="更新-rsshub">更新 RSSHub</h4>
-<ol>
-<li>
-<p>删除旧容器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ docker-compose down
-</span></span></code></pre></div></li>
-<li>
-<p>如果之前下载/使用过镜像，下方命令可以帮助你获取最新版本：这可能可以解决一些问题</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ docker pull diygod/rsshub
-</span></span></code></pre></div><p>然后重复安装步骤</p>
-</li>
-<li>
-<p>删除旧容器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ docker stop rsshub
-</span></span><span style="display:flex;"><span>$ docker rm rsshub
-</span></span></code></pre></div><p>然后重复安装步骤</p>
-</li>
-</ol>
-<p>现在RSSHub服务就部署完成</p>
-<!-- raw HTML omitted -->
-<blockquote>
-<p>参考文档</p>
-<p><a href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine</a></p>
-<p><a href="https://docs.rsshub.app/">RSSHub Docs</a></p>
-</blockquote>
         </div>
-
-        <div class="row middle-xs">
-          <div class="col-xs-12">
-            
-            <div class="post-tags">
-              <a href="/tags/tools/">
-                Tools
-              </a>
-            </div>
-            
-            <div class="post-tags">
-              <a href="/tags/notes/">
-                Notes
-              </a>
-            </div>
-            
-          </div>
-        </div>
-        
-          <div class="row">
-            <div class="col-xs-12">
-              
-            </div>
-          </div>
-
-          
-
-<div class="related-content">
-  <h3>Related Posts</h3>
-  <ul>
-    
-    <li><a href="/posts/configuring-offline-yum-repository-for-centos/">Centos配置离线yum源</a></li>
-    
-  </ul>
-</div>
-
-
-
-          
-          
-          <div style="height: 50px;"></div>
-          
-        
 
         <div class="site-footer">
   
@@ -299,8 +145,6 @@
     
   
 </script>
-
-  
 
 </body>
 

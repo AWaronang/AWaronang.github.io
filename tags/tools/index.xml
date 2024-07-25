@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on Pseudowang</title>
+    <link>https://wangzhr.top/tags/tools/</link>
+    <description>Recent content in Tools on Pseudowang</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Sep 2023 21:05:37 +0800</lastBuildDate>
+    <atom:link href="https://wangzhr.top/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>在服务器部署RSS服务</title>
+      <link>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</link>
+      <pubDate>Thu, 14 Sep 2023 21:05:37 +0800</pubDate>
+      <guid>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</guid>
+      <description>&lt;h3 id=&#34;步骤&#34;&gt;步骤:&lt;/h3&gt;&#xA;&lt;p&gt;系统为：Ubuntu 20.04&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装Docker Engine&lt;/li&gt;&#xA;&lt;li&gt;部署RSS服务&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+    </item>
+  </channel>
+</rss>

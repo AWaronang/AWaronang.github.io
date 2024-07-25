@@ -29,5 +29,12 @@
       <guid>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</guid>
       <description>&lt;h3 id=&#34;步骤&#34;&gt;步骤:&lt;/h3&gt;&#xA;&lt;p&gt;系统为：Ubuntu 20.04&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装Docker Engine&lt;/li&gt;&#xA;&lt;li&gt;部署RSS服务&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
     </item>
+    <item>
+      <title>Centos配置离线yum源</title>
+      <link>https://wangzhr.top/posts/configuring-offline-yum-repository-for-centos/</link>
+      <pubDate>Fri, 25 Sep 2020 10:48:57 +0800</pubDate>
+      <guid>https://wangzhr.top/posts/configuring-offline-yum-repository-for-centos/</guid>
+      <description>&lt;p&gt;我们在Llinux系统中安装插件一般都是使用yum来进行安装插件(也可以通过rpm包来安装但是我们现在用的最多的是yum安装)，yum安装可以联网安装和离线安装，离线安装就是不能连通外网的时候来进行安装插件&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

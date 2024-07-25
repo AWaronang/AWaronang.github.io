@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Daily on Pseudowang</title>
+    <link>https://wangzhr.top/tags/daily/</link>
+    <description>Recent content in Daily on Pseudowang</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 Dec 2023 16:09:11 +0800</lastBuildDate>
+    <atom:link href="https://wangzhr.top/tags/daily/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2023年总结</title>
+      <link>https://wangzhr.top/daily/summary-of-2023/</link>
+      <pubDate>Sat, 30 Dec 2023 16:09:11 +0800</pubDate>
+      <guid>https://wangzhr.top/daily/summary-of-2023/</guid>
+      <description>&lt;p&gt;对我的2023年的总结文章&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

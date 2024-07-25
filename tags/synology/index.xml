@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Synology on Pseudowang</title>
+    <link>https://wangzhr.top/tags/synology/</link>
+    <description>Recent content in Synology on Pseudowang</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Sep 2023 21:05:30 +0800</lastBuildDate>
+    <atom:link href="https://wangzhr.top/tags/synology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>群晖添加第三方套件源提示无效位置的解决方法</title>
+      <link>https://wangzhr.top/posts/fixing-invalid-location-error-for-third-party-package-sources-on-synology-nas/</link>
+      <pubDate>Thu, 14 Sep 2023 21:05:30 +0800</pubDate>
+      <guid>https://wangzhr.top/posts/fixing-invalid-location-error-for-third-party-package-sources-on-synology-nas/</guid>
+      <description>&lt;h1 id=&#34;群晖添加第三方套件源提示无效位置的解决方法&#34;&gt;&lt;em&gt;&lt;strong&gt;*群晖添加第三方套件源提示无效位置的解决方法*&lt;/strong&gt;&lt;/em&gt;&lt;/h1&gt;</description>
+    </item>
+  </channel>
+</rss>
