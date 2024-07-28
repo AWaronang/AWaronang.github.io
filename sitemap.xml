@@ -3,27 +3,48 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://wangzhr.top/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/tags/basic/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/caddy/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/categories/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/cloudflare/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/posts/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/categories/tech/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/posts/using-caddy-and-cloudflare-automatic-ssl-certificate/</loc>
+    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/notes/</loc>
+    <lastmod>2024-07-26T00:10:04+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/tools/</loc>
+    <lastmod>2024-07-26T00:10:04+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/umami/</loc>
+    <lastmod>2024-07-26T00:10:04+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/posts/setting-up-umami-service/</loc>
+    <lastmod>2024-07-26T00:10:04+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/tags/docker/</loc>
     <lastmod>2024-07-19T18:28:24+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/tags/openwrt/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
-  </url><url>
-    <loc>https://wangzhr.top/posts/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
-  </url><url>
-    <loc>https://wangzhr.top/tags/</loc>
-    <lastmod>2024-07-19T18:28:24+08:00</lastmod>
-  </url><url>
-    <loc>https://wangzhr.top/categories/tech/</loc>
     <lastmod>2024-07-19T18:28:24+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/posts/the-journey-of-building-and-running-immortalwrt/</loc>
@@ -33,9 +54,6 @@
     <lastmod>2024-07-04T02:36:06+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/posts/using-docker-to-set-up-openwrt/</loc>
-    <lastmod>2024-06-23T21:27:28+08:00</lastmod>
-  </url><url>
-    <loc>https://wangzhr.top/tags/notes/</loc>
     <lastmod>2024-06-23T21:27:28+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/</loc>
@@ -52,9 +70,6 @@
   </url><url>
     <loc>https://wangzhr.top/categories/life/</loc>
     <lastmod>2023-12-30T16:09:11+08:00</lastmod>
-  </url><url>
-    <loc>https://wangzhr.top/tags/tools/</loc>
-    <lastmod>2023-09-14T21:05:37+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</loc>
     <lastmod>2023-09-14T21:05:37+08:00</lastmod>

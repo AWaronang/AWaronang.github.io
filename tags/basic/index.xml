@@ -6,8 +6,15 @@
     <description>Recent content in Basic on Pseudowang</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jul 2024 18:28:24 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2024 00:07:48 +0800</lastBuildDate>
     <atom:link href="https://wangzhr.top/tags/basic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Caddy和Cloudflare自动获取SSL证书</title>
+      <link>https://wangzhr.top/posts/using-caddy-and-cloudflare-automatic-ssl-certificate/</link>
+      <pubDate>Mon, 29 Jul 2024 00:07:48 +0800</pubDate>
+      <guid>https://wangzhr.top/posts/using-caddy-and-cloudflare-automatic-ssl-certificate/</guid>
+      <description>由于之前为博客网站搭建了 Umami 统计工具，并计划将 Vaultwarden 服务从 Homelab 迁移到服务器上运行，以便在外网访问自己的 Vaultwarden 服务，我开始学习使用 Caddy 来获取 SSL 证书。通过将网站绑定到我在 Cloudflare 上的域名中，我可以更方便地管理和访问这些服务。&#xA;我的服务器系统为：Debian 12&#xA;Caddy 这是 Caddy的官网&#xA;安装Caddy 安装该软件包后， Caddy 会作为名为 caddy 的 systemd 服务自动启动和运行 稳定版本:&#xA;sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39; | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39; | sudo tee /etc/apt/sources.list.d/caddy-stable.list sudo apt update sudo apt install caddy 如果执行命令有报错的话，不妨先执行一下apt-get update先&#xA;然后我们运行&#xA;caddy 没有报错的话就是安装成功了&#xA;运行Caddy caddy run 和 systemctl start caddy 是启动 Caddy 的两种不同方法</description>
+    </item>
     <item>
       <title>从官方固件到Docker镜像：ImmortalWrt构建与运行之旅</title>
       <link>https://wangzhr.top/posts/the-journey-of-building-and-running-immortalwrt/</link>

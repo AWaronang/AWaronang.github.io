@@ -6,13 +6,48 @@
     <description>Recent content in Tags on Pseudowang</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Jul 2024 18:28:24 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jul 2024 00:07:48 +0800</lastBuildDate>
     <atom:link href="https://wangzhr.top/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Basic</title>
       <link>https://wangzhr.top/tags/basic/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://wangzhr.top/tags/basic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Caddy</title>
+      <link>https://wangzhr.top/tags/caddy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wangzhr.top/tags/caddy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cloudflare</title>
+      <link>https://wangzhr.top/tags/cloudflare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wangzhr.top/tags/cloudflare/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Notes</title>
+      <link>https://wangzhr.top/tags/notes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wangzhr.top/tags/notes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tools</title>
+      <link>https://wangzhr.top/tags/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wangzhr.top/tags/tools/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Umami</title>
+      <link>https://wangzhr.top/tags/umami/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wangzhr.top/tags/umami/</guid>
       <description></description>
     </item>
     <item>
@@ -30,24 +65,10 @@
       <description></description>
     </item>
     <item>
-      <title>Notes</title>
-      <link>https://wangzhr.top/tags/notes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://wangzhr.top/tags/notes/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Daily</title>
       <link>https://wangzhr.top/tags/daily/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://wangzhr.top/tags/daily/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Tools</title>
-      <link>https://wangzhr.top/tags/tools/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://wangzhr.top/tags/tools/</guid>
       <description></description>
     </item>
     <item>

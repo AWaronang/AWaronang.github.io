@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.126.3">
+
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="491fd5d7-5935-4716-a6e7-a712c4cd83cb"></script>
+  <meta name="google-site-verification" content="h_CKtBxxlEvtt7_Vf-Poa8ZfUb_Qz3uhNari58nd76c" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="pseudowang" />
+  <meta property="og:url" content="https://wangzhr.top/posts/using-caddy-and-cloudflare-automatic-ssl-certificate/" />
+  <link rel="canonical" href="https://wangzhr.top/posts/using-caddy-and-cloudflare-automatic-ssl-certificate/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
+  <link rel="icon" href="/images/avatar.png" />
+  <link rel="shortcut" href="/images/avatar.png" /><link rel="alternate" type="application/atom+xml" href="https://wangzhr.top/index.xml" title="Pseudowang">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/wangzhr.top\/"
+      },
+      "articleSection" : "posts",
+      "name" : "使用Caddy和Cloudflare自动获取SSL证书",
+      "headline" : "使用Caddy和Cloudflare自动获取SSL证书",
+      "description" : "由于之前为博客网站搭建了 Umami 统计工具，并计划将 Vaultwarden 服务从 Homelab 迁移到服务器上运行，以便在外网访问自己的 Vaultwarden 服务，我开始学习使用 Caddy 来获取 SSL 证书。通过将网站绑定到我在 Cloudflare 上的域名中，我可以更方便地管理和访问这些服务。\n我的服务器系统为：Debian 12\nCaddy 这是 Caddy的官网\n安装Caddy 安装该软件包后， Caddy 会作为名为 caddy 的 systemd 服务自动启动和运行 稳定版本:\nsudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl curl -1sLf \u0026#39;https:\/\/dl.cloudsmith.io\/public\/caddy\/stable\/gpg.key\u0026#39; | sudo gpg --dearmor -o \/usr\/share\/keyrings\/caddy-stable-archive-keyring.gpg curl -1sLf \u0026#39;https:\/\/dl.cloudsmith.io\/public\/caddy\/stable\/debian.deb.txt\u0026#39; | sudo tee \/etc\/apt\/sources.list.d\/caddy-stable.list sudo apt update sudo apt install caddy 如果执行命令有报错的话，不妨先执行一下apt-get update先\n然后我们运行\ncaddy 没有报错的话就是安装成功了\n运行Caddy caddy run 和 systemctl start caddy 是启动 Caddy 的两种不同方法",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2024",
+      "datePublished": "2024-07-29 00:07:48 \u002b0800 CST",
+      "dateModified" : "2024-07-29 00:07:48 \u002b0800 CST",
+      "url" : "https:\/\/wangzhr.top\/posts\/using-caddy-and-cloudflare-automatic-ssl-certificate\/",
+      "keywords" : [ "Caddy","Basic","Cloudflare", ]
+  }
+</script>
+<title>使用Caddy和Cloudflare自动获取SSL证书</title>
+  <meta property="og:title" content="使用Caddy和Cloudflare自动获取SSL证书" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="由于之前为博客网站搭建了 Umami 统计工具，并计划将 Vaultwarden 服务从 Homelab 迁移到服务器上运行，以便在外网访问自己的 Vaultwarden 服务，我开始学习使用 Caddy 来获取 SSL 证书。通过将网站绑定到我在 Cloudflare 上的域名中，我可以更方便地管理和访问这些服务。
+我的服务器系统为：Debian 12
+Caddy 这是 Caddy的官网
+安装Caddy 安装该软件包后， Caddy 会作为名为 caddy 的 systemd 服务自动启动和运行 稳定版本:
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39; | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39; | sudo tee /etc/apt/sources.list.d/caddy-stable.list sudo apt update sudo apt install caddy 如果执行命令有报错的话，不妨先执行一下apt-get update先
+然后我们运行
+caddy 没有报错的话就是安装成功了
+运行Caddy caddy run 和 systemctl start caddy 是启动 Caddy 的两种不同方法" />
+  <meta name="description" content="由于之前为博客网站搭建了 Umami 统计工具，并计划将 Vaultwarden 服务从 Homelab 迁移到服务器上运行，以便在外网访问自己的 Vaultwarden 服务，我开始学习使用 Caddy 来获取 SSL 证书。通过将网站绑定到我在 Cloudflare 上的域名中，我可以更方便地管理和访问这些服务。
+我的服务器系统为：Debian 12
+Caddy 这是 Caddy的官网
+安装Caddy 安装该软件包后， Caddy 会作为名为 caddy 的 systemd 服务自动启动和运行 稳定版本:
+sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&amp;#39; | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg curl -1sLf &amp;#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&amp;#39; | sudo tee /etc/apt/sources.list.d/caddy-stable.list sudo apt update sudo apt install caddy 如果执行命令有报错的话，不妨先执行一下apt-get update先
+然后我们运行
+caddy 没有报错的话就是安装成功了
+运行Caddy caddy run 和 systemctl start caddy 是启动 Caddy 的两种不同方法" />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="/images/avatar.png" />
+  
+
+  
+    <style>body{background-color:#fff;color:#444;font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif;font-size:100%}h1,h2,h3,h4,h5,h6{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif}code,pre{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}.highlight pre code{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:1.5rem;text-align:center}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{text-align:center}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css">
+  
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml"
+    title="Pseudowang">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >pseudowang</a
+    >
+  </div>
+  <div class="header-subtitle">记录无用却有趣的事物</div>
+</header>
+<div class="row end-md center-xs header-items">
+  
+  <div class="header-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/about/index.html" target="_blank">About</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/daily/index.html" target="_blank">Life</a>
+  </div>
+  
+</div>
+<div class="row end-xs">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">使用Caddy和Cloudflare自动获取SSL证书</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-07-29 00:07:48 CST">
+                2024-07-29
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@pseudowang</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <blockquote>
+<p>由于之前为博客网站搭建了 Umami 统计工具，并计划将 Vaultwarden 服务从 Homelab 迁移到服务器上运行，以便在外网访问自己的 Vaultwarden 服务，我开始学习使用 Caddy 来获取 SSL 证书。通过将网站绑定到我在 Cloudflare 上的域名中，我可以更方便地管理和访问这些服务。</p>
+</blockquote>
+<p>我的服务器系统为：<code>Debian 12</code></p>
+<h2 id="caddy">Caddy</h2>
+<p>这是 <a href="https://caddyserver.com/">Caddy</a>的官网</p>
+<h3 id="安装caddy">安装Caddy</h3>
+<p>安装该软件包后， Caddy 会作为名为 <code>caddy</code> 的 systemd 服务自动启动和运行
+稳定版本:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+</span></span><span style="display:flex;"><span>curl -1sLf <span style="color:#e6db74">&#39;https://dl.cloudsmith.io/public/caddy/stable/gpg.key&#39;</span> | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+</span></span><span style="display:flex;"><span>curl -1sLf <span style="color:#e6db74">&#39;https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt&#39;</span> | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install caddy
+</span></span></code></pre></div><p>如果执行命令有报错的话，不妨先执行一下<code>apt-get update</code>先</p>
+<p>然后我们运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>caddy
+</span></span></code></pre></div><p>没有报错的话就是安装成功了</p>
+<h3 id="运行caddy">运行Caddy</h3>
+<p><code>caddy run</code> 和 <code>systemctl start caddy</code> 是启动 Caddy 的两种不同方法</p>
+<ol>
+<li>
+<p><code>caddy run</code>： 通常用于开发、调试或测试环境中，因为她会直接将输出打印到终端， 便于查看日志和调试信息。也不会将 Caddy 当作系统服务来管理， 它只是在当前会话中启动 Caddy 可以通过<code>Ctrl + C</code> 停止</p>
+</li>
+<li>
+<p><code>systemctl start caddy</code>： 会将 Caddy 作为一个系统服务来启动。通过 systemctl 启动的服务可以由系统自动管理，包括在系统启动时自动启动、记录日志、监控状态等</p>
+</li>
+</ol>
+<p>我这里用的是<code>caddy run</code> 以及 <code>caddy start</code> 等。Caddy 也有 <a href="https://caddyserver.com/docs/command-line">Command Line</a>来解释每个命令的作用和意思</p>
+<p>如果你打算用 Caddy 自带的服务管理框架的时候，你运行<code>caddy start</code>或者<code>caddy run</code> 的时候可能会碰到一下报错
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/841744f791e0fc832deb0bebec4127fe.png" alt="image.png">
+我猜测是 <code>systemctl</code> 已经启动了 caddy 服务，使用 Caddy 自带的服务管理框架启动的时候，因为<code>systemctl</code> 已经启动了caddy服务， 所以将caddy的 API 端口给占用了，所以我们只需要<code>netstat -tulp | grep 2019</code>，找到占用的进程号
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/e82fcae684e789a83327616a41dca7ba.png" alt="image.png">
+然后使用<code>kill -9 2804</code> 将它 kill 掉</p>
+<p>这个时候我们再使用<code>caddy start</code> 就不会报错咯
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/bf7fdc88b904f712f38ee8bbc3c09d53.png" alt="image.png"></p>
+<p>然后可以直接通过 IP 在浏览器中访问的到网页
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/33971d68694a709c4e06f8004a6cfd6d.png" alt="image.png"></p>
+<h3 id="caddy的基础配置">Caddy的基础配置</h3>
+<p>进入 caddy 配置文件的目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /etc/caddy
+</span></span></code></pre></div><h4 id="更改caddy端口">更改caddy端口</h4>
+<p>如果你服务器的80端口和443端口给占用了，可以将caddy的<code>https</code>和<code>http</code>端口给更改，只需要在<code>Caddyfile</code>中添加。<a href="https://caddy.community/t/cannot-change-default-http-and-https-ports/14771/2">Caddy社区回答</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span>                                             
+</span></span><span style="display:flex;"><span>        https_port <span style="color:#ae81ff">8443</span>                                              
+</span></span><span style="display:flex;"><span>        http_port <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>        local_certs
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="添加-module-dnsproviderscloudflare">添加 Module dns.providers.cloudflare</h3>
+<blockquote>
+<p>[NON-STANDARD]此模块不随 Caddy 一同提供。您可以通过使用 xcaddy 或我们的下载页面添加它。非标准模块可能由社区开发，并不受 Caddy 项目的官方支持或维护。</p>
+</blockquote>
+<p><strong>Custom builds:****<a href="https://github.com/caddy-dns/cloudflare">https://github.com/caddy-dns/cloudflare</a></strong>
+<strong>Custom builds：</strong> <code>xcaddy build --with github.com/caddy-dns/cloudflare</code></p>
+<h4 id="go的安装">Go的安装</h4>
+<p>选择好自己的系统，右键复制地址
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/4bee027316a1bca1a2750cbe5d1f9ddf.png" alt="image.png"></p>
+<p>回到终端中执行</p>
+<pre tabindex="0"><code class="language-wget" data-lang="wget">wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz #后面为你刚刚在浏览器中复制的地址
+</code></pre><ol>
+<li>删除之前的Go 安装文件已经将刚刚下载好的包解压到 /usr/local</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> rm -rf /usr/local/go <span style="color:#f92672">&amp;&amp;</span> tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
+</span></span></code></pre></div><ol start="2">
+<li>将 /usr/local/go/bin 添加到PATH环境变量之中</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$PATH:/usr/local/go/bin
+</span></span></code></pre></div><ol start="3">
+<li>输入以下命令来验证是否成功安装Go</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> go version
+</span></span></code></pre></div><h4 id="安装xcaddy">安装xcaddy</h4>
+<p>前提条件: 已安装<a href="https://go.dev/doc/install">Go</a></p>
+<p>你可以从源代码构建<code>xcaddy</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest
+</span></span></code></pre></div><p>对于 Debian， Ubuntu和 Raspbian，可以直接从官方的 <a href="https://cloudsmith.io/~caddy/repos/xcaddy/packages/">Cloudsmith</a> 仓库获取 <code>xcaddy</code> 包 (我选的是这个方法)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+</span></span><span style="display:flex;"><span>curl -1sLf <span style="color:#e6db74">&#39;https://dl.cloudsmith.io/public/caddy/xcaddy/gpg.key&#39;</span> | sudo gpg --dearmor -o /usr/share/keyrings/caddy-xcaddy-archive-keyring.gpg
+</span></span><span style="display:flex;"><span>curl -1sLf <span style="color:#e6db74">&#39;https://dl.cloudsmith.io/public/caddy/xcaddy/debian.deb.txt&#39;</span> | sudo tee /etc/apt/sources.list.d/caddy-xcaddy.list
+</span></span><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install xcaddy
+</span></span></code></pre></div><h4 id="构建-dnsproviderscloudflare-模块">构建 dns.providers.cloudflare 模块</h4>
+<p>我选择回到<code>/etc/caddy/</code> 目录下运行， 因为会生成一个执行文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>xcaddy build --with github.com/caddy-dns/cloudflare
+</span></span></code></pre></div><p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/dba55acbd1d646241f27adc4a27c6129.png" alt="image.png"></p>
+<h3 id="创建-cloudflare-的--tokens">创建 Cloudflare 的  tokens</h3>
+<ol>
+<li>登录 Cloudflare 并转到要使用Caddy的域名</li>
+<li>向下滑之后右边你会看到标题为 &ldquo;API&rdquo; 的部分， 点击  &ldquo;Get your API token&rdquo;
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/e82790ea24fe8eeb8c93962fc1662e19.png" alt="image.png"></li>
+<li>然后点击 “Create Token”
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/654a3048d1f018fe7e65e6bba183fd60.png" alt=""></li>
+<li>在 “User API Tokens” 页面，滑动到底部， 点击 &ldquo;Create Custom Token&rdquo;
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/09b9564762e32ab33f5d60f2343d964a.png" alt="image.png"></li>
+<li>给你的Token 命名， 然后添加两个 &ldquo;Permissions&rdquo;
+<ol>
+<li>Zone - Zone - Read</li>
+<li>Zone - DNS -Edit
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/d98e18d92240b09caab26b1a04bb92bd.png" alt="image.png"></li>
+</ol>
+</li>
+<li>然后点击 “Continue to summary”， 现在就能看到您的API token了，然后将它复制下来
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/a1f80461da93f1d3d0eb13de28a62b88.png" alt=""></li>
+</ol>
+<h3 id="caddyfile编写">Caddyfile编写</h3>
+<p>可以将<code>Caddyfile</code> 文件里面的内容全部注释掉或者删掉，因为我的<code>Umami</code>服务是在<code>3000</code>端口运行的，所以要<code>reverse_proxy 127.0.0.1:3000</code>。</p>
+<p>以下是我的Caddyfile(example.com要换成你的域名)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#ae81ff">example.com {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">reverse_proxy 127.0.0.1:3000</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">tls {</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ae81ff">dns cloudflare {env.CLOUDFLARE_API_TOKEN}</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>然后在终端中输入之前拿到的Cloudflare API token</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export CLOUDFLARE_API_TOKEN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;your-api-token&#34;</span>
+</span></span></code></pre></div><p>这个环境变量只在当前的终端会话中有效，一旦你关闭了终端或者退出了登录，这个环境变量就会失效。</p>
+<p>如果你希望在每次登录时自动设置这个环境变量，可以将它添加到你的 shell 配置文件中，比如 <code>.bashrc</code> 或 <code>.bash_profile</code></p>
+<h3 id="运行">运行</h3>
+<p>在 Cloudflare 中添加好记录，就可以尝试访问了
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/e126e7f44f905598709b689be833cb88.png" alt="image.png">
+访问成功！！</p>
+<p><strong>参考文档</strong></p>
+<ul>
+<li><a href="https://caddyserver.com/docs/">Caddy官方文档</a></li>
+<li><a href="https://samedwardes.com/blog/2023-11-19-homelab-tls-with-caddy-and-cloudflare/">https://samedwardes.com/blog/2023-11-19-homelab-tls-with-caddy-and-cloudflare/</a></li>
+<li><a href="https://roelofjanelsinga.com/articles/using-caddy-ssl-with-cloudflare/">https://roelofjanelsinga.com/articles/using-caddy-ssl-with-cloudflare/</a></li>
+<li><a href="https://developers.cloudflare.com/fundamentals/api/how-to/create-via-api/">https://developers.cloudflare.com/fundamentals/api/how-to/create-via-api/</a></li>
+<li><a href="https://caddyserver.com/docs/modules/dns.providers.cloudflare">https://caddyserver.com/docs/modules/dns.providers.cloudflare</a></li>
+<li><a href="https://www.youtube.com/watch?v=WgUV_BlHvj0">https://www.youtube.com/watch?v=WgUV_BlHvj0</a></li>
+<li><a href="https://github.com/caddy-dns/cloudflare">https://github.com/caddy-dns/cloudflare</a></li>
+</ul>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+            <div class="post-tags">
+              <a href="/tags/caddy/">
+                Caddy
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/basic/">
+                Basic
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/cloudflare/">
+                Cloudflare
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+<div class="related-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/posts/the-journey-of-building-and-running-immortalwrt/">从官方固件到Docker镜像：ImmortalWrt构建与运行之旅</a></li>
+    
+    <li><a href="/posts/using-docker-to-set-up-openwrt/">Docker搭建OpenWrt</a></li>
+    
+    <li><a href="/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/">在Docker中部署Tomcat环境并制作镜像添加自定义页面</a></li>
+    
+  </ul>
+</div>
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>

@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tools on Pseudowang</title>
-    <link>https://wangzhr.top/tags/tools/</link>
-    <description>Recent content in Tools on Pseudowang</description>
+    <title>Umami on Pseudowang</title>
+    <link>https://wangzhr.top/tags/umami/</link>
+    <description>Recent content in Umami on Pseudowang</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 26 Jul 2024 00:10:04 +0800</lastBuildDate>
-    <atom:link href="https://wangzhr.top/tags/tools/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://wangzhr.top/tags/umami/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>搭建Umami服务</title>
       <link>https://wangzhr.top/posts/setting-up-umami-service/</link>
       <pubDate>Fri, 26 Jul 2024 00:10:04 +0800</pubDate>
       <guid>https://wangzhr.top/posts/setting-up-umami-service/</guid>
       <description>什么是Umami Umami 是一种简单、快速、注重隐私的开源分析解决方法。Umami 是 Google Analytics 的最佳替代品， 因为它能让您完全控制数据，而且不会侵犯用户隐私。&#xA;安装 我使用的安装方法是 Docker ， 以下是Umami 的 docker-compose.yml (Dockerfile仓库地址)&#xA;--- version: &amp;#39;3&amp;#39; services: umami: image: ghcr.io/umami-software/umami:postgresql-latest ports: - &amp;#34;3000:3000&amp;#34; environment: DATABASE_URL: postgresql://umami:umami@db:5432/umami DATABASE_TYPE: postgresql APP_SECRET: replace-me-with-a-random-string depends_on: db: condition: service_healthy restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;curl http://localhost:3000/api/heartbeat&amp;#34;] interval: 5s timeout: 5s retries: 5 db: image: postgres:15-alpine environment: POSTGRES_DB: umami POSTGRES_USER: umami POSTGRES_PASSWORD: umami volumes: - umami-db-data:/var/lib/postgresql/data restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}&amp;#34;] interval: 5s timeout: 5s retries: 5 volumes: umami-db-data: 然后运行</description>
-    </item>
-    <item>
-      <title>在服务器部署RSS服务</title>
-      <link>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</link>
-      <pubDate>Thu, 14 Sep 2023 21:05:37 +0800</pubDate>
-      <guid>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</guid>
-      <description>&lt;h3 id=&#34;步骤&#34;&gt;步骤:&lt;/h3&gt;&#xA;&lt;p&gt;系统为：Ubuntu 20.04&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;安装Docker Engine&lt;/li&gt;&#xA;&lt;li&gt;部署RSS服务&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
     </item>
   </channel>
 </rss>
