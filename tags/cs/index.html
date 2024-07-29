@@ -9,8 +9,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="pseudowang" />
-  <meta property="og:url" content="https://wangzhr.top/posts/setting-up-umami-service/" />
-  <link rel="canonical" href="https://wangzhr.top/posts/setting-up-umami-service/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
+  <meta property="og:url" content="https://wangzhr.top/tags/cs/" />
+  <link rel="canonical" href="https://wangzhr.top/tags/cs/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
   <link rel="icon" href="/images/avatar.png" />
   <link rel="shortcut" href="/images/avatar.png" /><link rel="alternate" type="application/atom+xml" href="https://wangzhr.top/index.xml" title="Pseudowang">
 
@@ -22,10 +22,10 @@
            "@type": "WebPage",
            "@id": "https:\/\/wangzhr.top\/"
       },
-      "articleSection" : "posts",
-      "name" : "搭建Umami服务",
-      "headline" : "搭建Umami服务",
-      "description" : "什么是Umami Umami 是一种简单、快速、注重隐私的开源分析解决方法。Umami 是 Google Analytics 的最佳替代品， 因为它能让您完全控制数据，而且不会侵犯用户隐私。\n安装 我使用的安装方法是 Docker ， 以下是Umami 的 docker-compose.yml (Dockerfile仓库地址)\n--- version: \u0026#39;3\u0026#39; services: umami: image: ghcr.io\/umami-software\/umami:postgresql-latest ports: - \u0026#34;3000:3000\u0026#34; environment: DATABASE_URL: postgresql:\/\/umami:umami@db:5432\/umami DATABASE_TYPE: postgresql APP_SECRET: replace-me-with-a-random-string depends_on: db: condition: service_healthy restart: always healthcheck: test: [\u0026#34;CMD-SHELL\u0026#34;, \u0026#34;curl http:\/\/localhost:3000\/api\/heartbeat\u0026#34;] interval: 5s timeout: 5s retries: 5 db: image: postgres:15-alpine environment: POSTGRES_DB: umami POSTGRES_USER: umami POSTGRES_PASSWORD: umami volumes: - umami-db-data:\/var\/lib\/postgresql\/data restart: always healthcheck: test: [\u0026#34;CMD-SHELL\u0026#34;, \u0026#34;pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}\u0026#34;] interval: 5s timeout: 5s retries: 5 volumes: umami-db-data: 然后运行",
+      "articleSection" : "tags",
+      "name" : "CS",
+      "headline" : "CS",
+      "description" : "",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -33,21 +33,17 @@
       "accountablePerson" : "",
       "copyrightHolder" : "",
       "copyrightYear" : "2024",
-      "datePublished": "2024-07-26 00:10:04 \u002b0800 CST",
-      "dateModified" : "2024-07-26 00:10:04 \u002b0800 CST",
-      "url" : "https:\/\/wangzhr.top\/posts\/setting-up-umami-service\/",
-      "keywords" : [ "Tools","Umami","Notes", ]
+      "datePublished": "2024-05-22 12:58:30 \u002b0800 CST",
+      "dateModified" : "2024-05-22 12:58:30 \u002b0800 CST",
+      "url" : "https:\/\/wangzhr.top\/tags\/cs\/",
+      "keywords" : [  ]
   }
 </script>
-<title>搭建Umami服务</title>
-  <meta property="og:title" content="搭建Umami服务" />
+<title>CS</title>
+  <meta property="og:title" content="CS" />
   <meta property="og:type" content="article" />
-  <meta property="og:description" content="什么是Umami Umami 是一种简单、快速、注重隐私的开源分析解决方法。Umami 是 Google Analytics 的最佳替代品， 因为它能让您完全控制数据，而且不会侵犯用户隐私。
-安装 我使用的安装方法是 Docker ， 以下是Umami 的 docker-compose.yml (Dockerfile仓库地址)
---- version: &amp;#39;3&amp;#39; services: umami: image: ghcr.io/umami-software/umami:postgresql-latest ports: - &amp;#34;3000:3000&amp;#34; environment: DATABASE_URL: postgresql://umami:umami@db:5432/umami DATABASE_TYPE: postgresql APP_SECRET: replace-me-with-a-random-string depends_on: db: condition: service_healthy restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;curl http://localhost:3000/api/heartbeat&amp;#34;] interval: 5s timeout: 5s retries: 5 db: image: postgres:15-alpine environment: POSTGRES_DB: umami POSTGRES_USER: umami POSTGRES_PASSWORD: umami volumes: - umami-db-data:/var/lib/postgresql/data restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}&amp;#34;] interval: 5s timeout: 5s retries: 5 volumes: umami-db-data: 然后运行" />
-  <meta name="description" content="什么是Umami Umami 是一种简单、快速、注重隐私的开源分析解决方法。Umami 是 Google Analytics 的最佳替代品， 因为它能让您完全控制数据，而且不会侵犯用户隐私。
-安装 我使用的安装方法是 Docker ， 以下是Umami 的 docker-compose.yml (Dockerfile仓库地址)
---- version: &amp;#39;3&amp;#39; services: umami: image: ghcr.io/umami-software/umami:postgresql-latest ports: - &amp;#34;3000:3000&amp;#34; environment: DATABASE_URL: postgresql://umami:umami@db:5432/umami DATABASE_TYPE: postgresql APP_SECRET: replace-me-with-a-random-string depends_on: db: condition: service_healthy restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;curl http://localhost:3000/api/heartbeat&amp;#34;] interval: 5s timeout: 5s retries: 5 db: image: postgres:15-alpine environment: POSTGRES_DB: umami POSTGRES_USER: umami POSTGRES_PASSWORD: umami volumes: - umami-db-data:/var/lib/postgresql/data restart: always healthcheck: test: [&amp;#34;CMD-SHELL&amp;#34;, &amp;#34;pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}&amp;#34;] interval: 5s timeout: 5s retries: 5 volumes: umami-db-data: 然后运行" />
+  <meta property="og:description" content="" />
+  <meta name="description" content="" />
   <meta property="og:locale" content="en-us" /><meta property="og:image" content="/images/avatar.png" />
   
 
@@ -75,11 +71,10 @@
 
 
 <body>
-  <article class="post " id="article">
+  <article class="posts">
     <div class="row">
       <div class="col-xs-12">
-        <div class="site-header">
-          
+        
 <header>
   <div class="header-title">
     <a href="/"
@@ -108,134 +103,60 @@
 </div>
 <div class="header-line"></div>
 
-        </div>
-        <header class="post-header">
-          <h1 class="post-title">搭建Umami服务</h1>
-          
-          <div class="row post-desc">
-            <div class="col-xs-6">
-              
-              <time class="post-date" datetime="2024-07-26 00:10:04 CST">
-                2024-07-26
-              </time>
-              
-            </div>
-            <div class="col-xs-6">
-              
-              <div class="post-author">
-                <a target="_blank" href="">@pseudowang</a>
+
+        <h1 class="taxonomy-term">CS</h1>
+        <div id="posts-list">
+          <section>
+            <h1 class="site-date-catalog">2024</h1>
+
+            
+            <div class="row posts-line">
+              <div class="posts-date col-xs-2">
+                <time datetime="2024-05-22 12:58:30 CST">05-22</time> 
               </div>
-              
+              <div class="posts-title col-xs-10">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="/notes/cs50lecture4/">CS50 Lecture 4-Memory</a>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          
-        </header>
+            
+          </section>
+          <section>
+            <h1 class="site-date-catalog">2023</h1>
 
-        <div class="post-content markdown-body">
+            
+            <div class="row posts-line">
+              <div class="posts-date col-xs-2">
+                <time datetime="2023-12-01 12:56:06 CST">12-01</time> 
+              </div>
+              <div class="posts-title col-xs-10">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="/notes/cs50lecture2/">CS50 Lecture 2-Arrays</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row posts-line">
+              <div class="posts-date col-xs-2">
+                <time datetime="2023-11-01 12:48:55 CST">11-01</time> 
+              </div>
+              <div class="posts-title col-xs-10">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <a href="/notes/cs50lecture1/">CS50 Lecture 1-C</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
           
-          <h3 id="什么是umami">什么是Umami</h3>
-<p>Umami 是一种简单、快速、注重隐私的开源分析解决方法。Umami 是 Google Analytics 的最佳替代品， 因为它能让您完全控制数据，而且不会侵犯用户隐私。</p>
-<h3 id="安装">安装</h3>
-<p>我使用的安装方法是 <strong>Docker</strong> ， 以下是Umami 的 <strong>docker-compose.yml</strong> (<a href="https://github.com/umami-software/umami/blob/master/docker-compose.yml">Dockerfile仓库地址</a>)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
-</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">umami</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">ghcr.io/umami-software/umami:postgresql-latest</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;3000:3000&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DATABASE_URL</span>: <span style="color:#ae81ff">postgresql://umami:umami@db:5432/umami</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DATABASE_TYPE</span>: <span style="color:#ae81ff">postgresql</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">APP_SECRET</span>: <span style="color:#ae81ff">replace-me-with-a-random-string</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">db</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">service_healthy</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">healthcheck</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">test</span>: [<span style="color:#e6db74">&#34;CMD-SHELL&#34;</span>, <span style="color:#e6db74">&#34;curl http://localhost:3000/api/heartbeat&#34;</span>]
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">5s</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">timeout</span>: <span style="color:#ae81ff">5s</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retries</span>: <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">db</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgres:15-alpine</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">POSTGRES_DB</span>: <span style="color:#ae81ff">umami</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">POSTGRES_USER</span>: <span style="color:#ae81ff">umami</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">POSTGRES_PASSWORD</span>: <span style="color:#ae81ff">umami</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
-</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">umami-db-data:/var/lib/postgresql/data</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">healthcheck</span>:
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">test</span>: [<span style="color:#e6db74">&#34;CMD-SHELL&#34;</span>, <span style="color:#e6db74">&#34;pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}&#34;</span>]
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">5s</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">timeout</span>: <span style="color:#ae81ff">5s</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retries</span>: <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">volumes</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">umami-db-data</span>:
-</span></span></code></pre></div><p>然后运行</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker-compose up -d 
-</span></span></code></pre></div><p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/0f7741513ef509edf0636f551872648d.png" alt="image.png"></p>
-<p>然后访问网页(因为我的服务器3000端口给占用了，所以我改到3333)
-默认用户名: <code>admin</code> 默认密码: <code>umami</code> (登录上去记得修改)
-<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/f387baca6310124e52b63601bc64e593.png" alt="image.png"></p>
-<h3 id="使用">使用</h3>
-<p>后面的使用步骤和在Umami官网上的使用步骤是一样的，只不过要把<code>Tracking code</code>更换一下。</p>
-
         </div>
-
-        <div class="row middle-xs">
-          <div class="col-xs-12">
-            
-            <div class="post-tags">
-              <a href="/tags/tools/">
-                Tools
-              </a>
-            </div>
-            
-            <div class="post-tags">
-              <a href="/tags/umami/">
-                Umami
-              </a>
-            </div>
-            
-            <div class="post-tags">
-              <a href="/tags/notes/">
-                Notes
-              </a>
-            </div>
-            
-          </div>
-        </div>
-        
-          <div class="row">
-            <div class="col-xs-12">
-              
-            </div>
-          </div>
-
-          
-
-<div class="related-content">
-  <h3>Related Posts</h3>
-  <ul>
-    
-    <li><a href="/posts/deploy-rss-service-on-the-server/">在服务器部署RSS服务</a></li>
-    
-    <li><a href="/posts/using-docker-to-set-up-openwrt/">Docker搭建OpenWrt</a></li>
-    
-    <li><a href="/notes/cs50lecture4/">CS50 Lecture 4-Memory</a></li>
-    
-  </ul>
-</div>
-
-
-
-          
-          
-          <div style="height: 50px;"></div>
-          
-        
 
         <div class="site-footer">
   
@@ -255,8 +176,6 @@
     
   
 </script>
-
-  
 
 </body>
 

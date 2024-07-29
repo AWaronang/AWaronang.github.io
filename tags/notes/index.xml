@@ -23,11 +23,32 @@
       <description>前言 这周五的时候，因为上周实训完了，学到了很多东西，学到了Gitlab，之前就有想自己搭建一个自己的代码版本管理仓库，正好宿舍有一台小服务器在Docker 中运行着OpenWRT， 一开始一直拉不下来 GitLab 的镜像，好像是因为最近很多国内docker镜像站给关闭了，然后后面通过加速站拉取下拉了，然后发现磁盘空间不够了， 然后自己手贱去调整了分区，然后就再也开不了机了(就是自己对这个方面不了解，然后去乱搞才会导致这件事情的发生)， 不过上次搭建OpenWRT 和 nas-tools 的时候没有写笔记，然后已经忘了差不多了。这次花了很多时间就是因为上次没有写笔记进行总结，才会花费了这么长的时间，所以这次打算把全部过程记录下来，这样给以后自己手贱搞坏服务器的时候可以用(最好还是别发生，真的很累)&#xA;Docker 安装 这个可以直接搜索，因为现在使用的官方安装脚本已经不能用了，不知道到时候再用的时候，我推荐的安装方法会不会也不可以用了，建议要用的时候直接Google，使用国内可以安装的方法&#xA;设置网络 将网卡混杂模式打开 sudo ip link set enp3s0 promisc on 混杂模式（Promiscuous Mode）是一种网络接口卡 (NIC) 操作模式。在这种模式下，网络接口卡会接收它所在网络上的所有数据包，而不仅仅是发送给它的数据包。&#xA;创建 Docker 网卡 docker network create -d macvlan --subnet=192.168.10.0/24 --gateway=192.168.10.1 -o parent=enp3s0 macnet macvlan 是一种网络驱动程序，它允许Docker 容器直接连接到宿主机的物理网络。使用macvlan 时，每个容器将获得一个唯一的 MAC 地址， 并直接出现在物理网络上， 就像它是一个独立的设备&#xA;下载openwrt 镜像并启动容器 GitHub 仓库 这里包含了很全的镜像文件包含了 arm，x86，x64的docker镜像，我的机器是NUC，所以我安装的是x64 的 docker 镜像。可以通过uname -a 查看 拉取镜像docker pull sulinggg/openwrt:x86_64 如果拉取不下来的话，可以使用作者的 阿里云镜像仓库 registry.cn-shanghai.aliyuncs.com/suling/openwrt:x86_64 镜像还是一样的&#xA;启动 OpenWRT 镜像 docker run --restart always --name openwrt -d --network macnet --privileged sulinggg/openwrt:x86_64 /sbin/init 设置容器ip 到目前为止， 容器已经启动了，可以通过docker ps -a 查看运行的容器，然后查看OpenWRT 的 container ID</description>
     </item>
     <item>
+      <title>CS50 Lecture 4-Memory</title>
+      <link>https://wangzhr.top/notes/cs50lecture4/</link>
+      <pubDate>Wed, 22 May 2024 12:58:30 +0800</pubDate>
+      <guid>https://wangzhr.top/notes/cs50lecture4/</guid>
+      <description>这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!&#xA;Welcome 在前几周，我们谈论到了图像是由称为pixel的较小构建块组成的 Pixel Art 像素是正方形，单个点，颜色排列在上下左右网格之中&#xA;可以将图像想象为 bits，其中0代表黑色，1代表白色 RGB，其实就是 red, green, bule，这些数字是表示这些颜色中每种颜色的数量。在Adoble Photoshop 中，你可以看到这些设置 从上图可以看出，颜色不仅仅用三个值来表示。在窗口的底部，有一个由数字和字符组成的特殊值。255表示FF，这就是Hexadecimal&#xA;Hexadecimal(十六进制) Hexadecimal 是一种具有16个计数值的计数系统 0 1 2 3 4 5 6 7 8 9 a b c d e f 其中的F 代表的是 15&#xA;Hexadecimal 也被称为 base-16 以 十六进制 计数的时候，每列就是16的幂 数字0 表示00 数字1 表示 01 数字9 表示 09 数字10 表示 0A 数字15 表示 0F 数字16 表示 10(是十六进制中的10而不是我们日常中使用的10) 数字255表示 FF，因为 16 x 15 是240。再加上15，得到的255。这个是你使用两位十六进制系统计算的最高数字 Memory 将 十六进制 应用于每个内存块，如果我们还想之前一样使用的话，我们就会很容易将十六进制中的10 和 二进制中的10 混淆</description>
+    </item>
+    <item>
       <title>在Docker中部署Tomcat环境并制作镜像添加自定义页面</title>
       <link>https://wangzhr.top/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/</link>
       <pubDate>Fri, 03 May 2024 21:39:25 +0800</pubDate>
       <guid>https://wangzhr.top/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/</guid>
       <description>当你开始这个任务的时候，希望你已经基本了解Docker是什么东西，基本的命令&#xA;Docker 快速入门文档(推荐)&#xA;Docker 快速入门文档配套视频&#xA;Docker官网给Docker的概述(开翻译插件去看)&#xA;任务8 编写一个Java Web项目，发布为war包，并在Docker容器中运行&#xA;我已经写好了一个基本的Java Web 页面，简单的Hello world，并完成了war包的打包 打包教程CSDN&#xA;安装Docker Engine 我们用的系统是Centos7，所以就可以直接去Docker 官方去找安装教程Centos Docker安装教程，但是我给你的虚拟机已经配置好了Docker环境，所以这一步可以跳过，但是最好可以去看一下了解一下Docker大致的安装步骤，也很简单官方都是直接给一个 安装脚本，复制粘贴跑就完了&#xA;编写一个Java Web项目，发布为war包 制作的 web 包已经一起发给你了，名字为myweb.war&#xA;在Docker 运行一个Tomcat容器 [root@tomcat ~]# docker run -d -p 8080:8080 tomcat:latest # -d, --detach 在后台运行container并打印container ID # -p, --publish 将container端口发布到host #tomcat:latest 表示使用tomcat最新的镜像,latest的英文意思就是最新的,最近的 container 就是容器的意思&#xA;你可能觉得上面是报错了，但其实不是的，他们提示的是Unable to find image &#39;tomcat:lastest&#39; locally，说明你本地没有tomcat的镜像，他从Docker registries中给你拉取就是下载镜像(Docker registries 就像我之前给你解释的应用商城一样，而Docker registries是 Docker 官方的命名)&#xA;ChatGPT翻译 如果它报错 docker: Error response from daemon: driver failed programming external connectivity on endpoint naughty_torvalds (0edd856e1b25bbf689ba039aac0d2aa33d4eb334fbd50d4915a774912ad27f3e): Error starting userland proxy: listen tcp4 0.</description>
+    </item>
+    <item>
+      <title>CS50 Lecture 2-Arrays</title>
+      <link>https://wangzhr.top/notes/cs50lecture2/</link>
+      <pubDate>Fri, 01 Dec 2023 12:56:06 +0800</pubDate>
+      <guid>https://wangzhr.top/notes/cs50lecture2/</guid>
+      <description>这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!&#xA;Compiling Encryption is the act of hiding plain text from prying eyes. decrypting,then, is the act of taking an encrypted piece of text and returning it to human-readable form. An encrypted piece of text may look like the following: The compiler, a specialized computer program that converts source code into machine code that can be understood by a computer For Example, you might have a computer program that looks like this: #include &amp;lt;stdio.</description>
+    </item>
+    <item>
+      <title>CS50 Lecture 1-C</title>
+      <link>https://wangzhr.top/notes/cs50lecture1/</link>
+      <pubDate>Wed, 01 Nov 2023 12:48:55 +0800</pubDate>
+      <guid>https://wangzhr.top/notes/cs50lecture1/</guid>
+      <description>这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!&#xA;Welcome! Recall that machines only understand binary. Where humans write source code, a list of instructions for the computer that is human readable, machines only understand what we can now call machine code. This machine code is a pattern of ones and zeros that produces a desired effect.&#xA;It turns out that we can convert source code into machine code using a very special piece of software called a compiler.</description>
     </item>
     <item>
       <title>在服务器部署RSS服务</title>

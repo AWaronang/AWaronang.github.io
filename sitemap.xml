@@ -3,7 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://wangzhr.top/</loc>
-    <lastmod>2024-07-29T00:07:48+08:00</lastmod>
+    <lastmod>2024-07-29T12:58:14+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/notes/</loc>
+    <lastmod>2024-07-29T12:58:14+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/tags/basic/</loc>
     <lastmod>2024-07-29T00:07:48+08:00</lastmod>
@@ -56,6 +59,18 @@
     <loc>https://wangzhr.top/posts/using-docker-to-set-up-openwrt/</loc>
     <lastmod>2024-06-23T21:27:28+08:00</lastmod>
   </url><url>
+    <loc>https://wangzhr.top/tags/cs/</loc>
+    <lastmod>2024-05-22T12:58:30+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/notes/cs50lecture4/</loc>
+    <lastmod>2024-05-22T12:58:30+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/tags/input/</loc>
+    <lastmod>2024-05-22T12:58:30+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/categories/notes/</loc>
+    <lastmod>2024-05-22T12:58:30+08:00</lastmod>
+  </url><url>
     <loc>https://wangzhr.top/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/</loc>
     <lastmod>2024-05-03T21:39:25+08:00</lastmod>
   </url><url>
@@ -70,6 +85,12 @@
   </url><url>
     <loc>https://wangzhr.top/categories/life/</loc>
     <lastmod>2023-12-30T16:09:11+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/notes/cs50lecture2/</loc>
+    <lastmod>2023-12-01T12:56:06+08:00</lastmod>
+  </url><url>
+    <loc>https://wangzhr.top/notes/cs50lecture1/</loc>
+    <lastmod>2023-11-01T12:48:55+08:00</lastmod>
   </url><url>
     <loc>https://wangzhr.top/posts/deploy-rss-service-on-the-server/</loc>
     <lastmod>2023-09-14T21:05:37+08:00</lastmod>

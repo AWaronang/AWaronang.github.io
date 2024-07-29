@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.126.3">
+
+  <script defer src="https://track.wangzhr.top/script.js" data-website-id="e052b77d-2829-4543-8593-a69852aa810d"></script>
+  <meta name="google-site-verification" content="h_CKtBxxlEvtt7_Vf-Poa8ZfUb_Qz3uhNari58nd76c" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="pseudowang" />
+  <meta property="og:url" content="https://wangzhr.top/notes/cs50lecture4/" />
+  <link rel="canonical" href="https://wangzhr.top/notes/cs50lecture4/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
+  <link rel="icon" href="/images/avatar.png" />
+  <link rel="shortcut" href="/images/avatar.png" /><link rel="alternate" type="application/atom+xml" href="https://wangzhr.top/index.xml" title="Pseudowang">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/wangzhr.top\/"
+      },
+      "articleSection" : "notes",
+      "name" : "CS50 Lecture 4-Memory",
+      "headline" : "CS50 Lecture 4-Memory",
+      "description" : "这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!\nWelcome 在前几周，我们谈论到了图像是由称为pixel的较小构建块组成的 Pixel Art 像素是正方形，单个点，颜色排列在上下左右网格之中\n可以将图像想象为 bits，其中0代表黑色，1代表白色 RGB，其实就是 red, green, bule，这些数字是表示这些颜色中每种颜色的数量。在Adoble Photoshop 中，你可以看到这些设置 从上图可以看出，颜色不仅仅用三个值来表示。在窗口的底部，有一个由数字和字符组成的特殊值。255表示FF，这就是Hexadecimal\nHexadecimal(十六进制) Hexadecimal 是一种具有16个计数值的计数系统 0 1 2 3 4 5 6 7 8 9 a b c d e f 其中的F 代表的是 15\nHexadecimal 也被称为 base-16 以 十六进制 计数的时候，每列就是16的幂 数字0 表示00 数字1 表示 01 数字9 表示 09 数字10 表示 0A 数字15 表示 0F 数字16 表示 10(是十六进制中的10而不是我们日常中使用的10) 数字255表示 FF，因为 16 x 15 是240。再加上15，得到的255。这个是你使用两位十六进制系统计算的最高数字 Memory 将 十六进制 应用于每个内存块，如果我们还想之前一样使用的话，我们就会很容易将十六进制中的10 和 二进制中的10 混淆",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2024",
+      "datePublished": "2024-05-22 12:58:30 \u002b0800 CST",
+      "dateModified" : "2024-05-22 12:58:30 \u002b0800 CST",
+      "url" : "https:\/\/wangzhr.top\/notes\/cs50lecture4\/",
+      "keywords" : [ "Notes","Input","CS", ]
+  }
+</script>
+<title>CS50 Lecture 4-Memory</title>
+  <meta property="og:title" content="CS50 Lecture 4-Memory" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!
+Welcome 在前几周，我们谈论到了图像是由称为pixel的较小构建块组成的 Pixel Art 像素是正方形，单个点，颜色排列在上下左右网格之中
+可以将图像想象为 bits，其中0代表黑色，1代表白色 RGB，其实就是 red, green, bule，这些数字是表示这些颜色中每种颜色的数量。在Adoble Photoshop 中，你可以看到这些设置 从上图可以看出，颜色不仅仅用三个值来表示。在窗口的底部，有一个由数字和字符组成的特殊值。255表示FF，这就是Hexadecimal
+Hexadecimal(十六进制) Hexadecimal 是一种具有16个计数值的计数系统 0 1 2 3 4 5 6 7 8 9 a b c d e f 其中的F 代表的是 15
+Hexadecimal 也被称为 base-16 以 十六进制 计数的时候，每列就是16的幂 数字0 表示00 数字1 表示 01 数字9 表示 09 数字10 表示 0A 数字15 表示 0F 数字16 表示 10(是十六进制中的10而不是我们日常中使用的10) 数字255表示 FF，因为 16 x 15 是240。再加上15，得到的255。这个是你使用两位十六进制系统计算的最高数字 Memory 将 十六进制 应用于每个内存块，如果我们还想之前一样使用的话，我们就会很容易将十六进制中的10 和 二进制中的10 混淆" />
+  <meta name="description" content="这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!
+Welcome 在前几周，我们谈论到了图像是由称为pixel的较小构建块组成的 Pixel Art 像素是正方形，单个点，颜色排列在上下左右网格之中
+可以将图像想象为 bits，其中0代表黑色，1代表白色 RGB，其实就是 red, green, bule，这些数字是表示这些颜色中每种颜色的数量。在Adoble Photoshop 中，你可以看到这些设置 从上图可以看出，颜色不仅仅用三个值来表示。在窗口的底部，有一个由数字和字符组成的特殊值。255表示FF，这就是Hexadecimal
+Hexadecimal(十六进制) Hexadecimal 是一种具有16个计数值的计数系统 0 1 2 3 4 5 6 7 8 9 a b c d e f 其中的F 代表的是 15
+Hexadecimal 也被称为 base-16 以 十六进制 计数的时候，每列就是16的幂 数字0 表示00 数字1 表示 01 数字9 表示 09 数字10 表示 0A 数字15 表示 0F 数字16 表示 10(是十六进制中的10而不是我们日常中使用的10) 数字255表示 FF，因为 16 x 15 是240。再加上15，得到的255。这个是你使用两位十六进制系统计算的最高数字 Memory 将 十六进制 应用于每个内存块，如果我们还想之前一样使用的话，我们就会很容易将十六进制中的10 和 二进制中的10 混淆" />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="/images/avatar.png" />
+  
+
+  
+    <style>body{background-color:#fff;color:#444;font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif;font-size:100%}h1,h2,h3,h4,h5,h6{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif}code,pre{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}.highlight pre code{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:1.5rem;text-align:center}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{text-align:center}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css">
+  
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml"
+    title="Pseudowang">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >pseudowang</a
+    >
+  </div>
+  <div class="header-subtitle">记录无用却有趣的事物</div>
+</header>
+<div class="row end-md center-xs header-items">
+  
+  <div class="header-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/about/index.html" target="_blank">About</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/daily/index.html" target="_blank">Life</a>
+  </div>
+  
+</div>
+<div class="row end-xs">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">CS50 Lecture 4-Memory</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2024-05-22 12:58:30 CST">
+                2024-05-22
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@pseudowang</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <blockquote>
+<p>这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!</p>
+</blockquote>
+<h4 id="welcome">Welcome</h4>
+<ul>
+<li>在前几周，我们谈论到了图像是由称为<code>pixel</code>的较小构建块组成的</li>
+</ul>
+<h4 id="pixel-art">Pixel Art</h4>
+<ul>
+<li>
+<p>像素是正方形，单个点，颜色排列在上下左右网格之中</p>
+</li>
+<li>
+<p>可以将图像想象为 <code>bits</code>，其中<code>0</code>代表黑色，<code>1</code>代表白色
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/860adf89b5e5e1756701628c8d45d05d.png" alt=""></p>
+</li>
+<li>
+<p>RGB，其实就是 <strong>red, green, bule</strong>，这些数字是表示这些颜色中每种颜色的数量。在Adoble Photoshop 中，你可以看到这些设置
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/92d8e386c44965e76107694791287939.png" alt=""></p>
+</li>
+<li>
+<p>从上图可以看出，颜色不仅仅用三个值来表示。在窗口的底部，有一个由数字和字符组成的特殊值。<code>255</code>表示<code>FF</code>，这就是<code>Hexadecimal</code></p>
+</li>
+</ul>
+<h4 id="hexadecimal十六进制">Hexadecimal(十六进制)</h4>
+<ul>
+<li><em>Hexadecimal</em> 是一种具有16个计数值的计数系统</li>
+</ul>
+<pre tabindex="0"><code>0 1 2 3 4 5 6 7 8 9 a b c d e f
+</code></pre><p>其中的<code>F</code> 代表的是 <code>15</code></p>
+<ul>
+<li>Hexadecimal 也被称为 <em>base-16</em></li>
+<li>以 十六进制 计数的时候，每列就是16的幂</li>
+<li>数字<code>0</code> 表示<code>00</code></li>
+<li>数字<code>1</code> 表示 <code>01</code></li>
+<li>数字<code>9</code> 表示 <code>09</code></li>
+<li>数字<code>10</code> 表示 <code>0A</code></li>
+<li>数字<code>15</code> 表示 <code>0F</code></li>
+<li>数字<code>16</code> 表示 <code>10</code>(是十六进制中的10而不是我们日常中使用的10)</li>
+<li>数字<code>255</code>表示 <code>FF</code>，因为 16 x 15 是240。再加上15，得到的255。这个是你使用两位十六进制系统计算的最高数字</li>
+</ul>
+<h4 id="memory">Memory</h4>
+<ul>
+<li>
+<p>将 十六进制 应用于每个内存块，如果我们还想之前一样使用的话，我们就会很容易将十六进制中的<code>10</code> 和 二进制中的<code>10</code> 混淆</p>
+</li>
+<li>
+<p>因此，按照惯例，所有十六进制的数通常用<code>0x</code>作为前缀表示
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/eeb7ea3f1287afa9429207c0719a0381.png" alt=""></p>
+</li>
+<li>
+<p>在终端窗口中，输入<code>code addresses.c</code>，并按照以下方式编写代码</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, n);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中<code>n</code>是怎么存储在内存中的，值为<code>50</code></p>
+<ul>
+<li>
+<p>你可以可视化此程序
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/edaf3dd9b30d1c7e1840004728a40f05.png" alt="">
+为什么会占用4个格子呢，因为<code>int</code>类型大小是 4 bytes</p>
+</li>
+<li>
+<p>在 <code>C</code> 语言中有两个与内存相关的强大运算符</p>
+</li>
+</ul>
+<pre tabindex="0"><code>  &amp; 提供存储在内存中某物的地址.
+  * 指示编译器前往内存中的某个位置.
+</code></pre><ul>
+<li>我们可以通过修改代码来利用这些知识</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">&amp;</span>n);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中的<code>%p</code>，它允许我们擦看内存中某个位置的地址。<code>&amp;n</code>可以当成<code>n</code>的地址。执行此代码将返回以<code>0x</code>开头的内存地址</p>
+<h4 id="pointers指针">Pointers(指针)</h4>
+<ul>
+<li><code>pointer</code> 是包含某个值的地址的变量。简而言之，指针是计算机内存中的一个地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>; <span style="color:#75715e">//声明一个int类型的n变量,将其初始化为50
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>n; <span style="color:#75715e">//声明了指针变量p,&amp;n获取n的地址,并将地址赋值指针变量p
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">, p&#34;</span>); <span style="color:#75715e">//将指针变量p的地址打印输出
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>注意，<code>printf</code>行在<code>p</code>的位置打印整数。<code>int *p</code> 创建一个指针，其工作是存储整数的内存地址</p>
+<ul>
+<li>
+<p>我们可以将我么的代码可视化如下
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/f95d61c5ee00e147e3d34f0be7ab8b8d.png" alt="">
+注意，指针看起来相当大。事实上，指针通常存储为 8-byte。<code>p</code>存储<code>50</code>的地址</p>
+</li>
+<li>
+<p>你可以更准确地将指针可视化为指向另一个地址的一个地址
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/b1f4259eed64458a15c4606d61700a8d.png" alt=""></p>
+</li>
+</ul>
+<h4 id="strings">Strings</h4>
+<ul>
+<li>
+<p>现在我们学习了基本的指针，我们可以剥离课程前面提供的简化程序(丢掉辅助轮)</p>
+</li>
+<li>
+<p>回想一下，<code>string</code> 只是一个字符数组。例如,，<code>string  s = &quot;HI!&quot;</code> 可以表示如下
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/9445d852bf53a226d89e26f23cb39c09.png" alt=""></p>
+</li>
+<li>
+<p>然而，<code>s</code> 到底是什么? <code>s</code>存储在内存中的什么位置? 可以想象, <code>s</code> 需要存储在某个地方。你可以可视化<code>s</code> 与 字符串的关系
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/743a67a436f18ba0eadd6a397b26609c.png" alt="">
+注意名为<code>s</code>的指针如何告诉编译器字符串的第一个字节在内存中的位置</p>
+</li>
+<li>
+<p>按如下方式修改代码</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">&amp;</span>s[<span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>上面打印了字符串<code>s</code>中每个字符的内存位置。<code>&amp;</code>符号用于显示字符串中每个元素的地址。运行此代码时，注意元素<code>0</code>、<code>1</code>、<code>2</code>和<code>3</code>在内存中彼此相邻
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/3965cad34230cbbfe232af1c2335930d.png" alt=""></p>
+<ul>
+<li>同样，你可以按照以下方法修改代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>此代码将显示从<code>s</code>位置开始的字符串。此代码有效地删除了<code>cs50.h</code>提供的<code>string</code>数据类型的辅助轮。这是原始C代码，没有cs50库的脚手架</p>
+<h4 id="pointer-arithmetic">Pointer Arithmetic</h4>
+<ul>
+<li>可以修改代码以更长的形式完成相同的操作</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s[<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>也可以使用以下方法修改代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>(s <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>(s <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>打印了<code>s</code> 位置的第一个字符。然后，打印位置为<code>s+1</code>处的字符，以此类推
+输出的结果就是
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/52dcc8f671c90f61e4aca54626f8db19.png" alt=""></p>
+<h4 id="string-comparison">String Comparison</h4>
+<ul>
+<li>A string 只是由其第一个字节表示的字符数组</li>
+<li>在课程的前面，我们考虑了整数的比较。我们可以通过在中终端中输入<code>codecompare.c</code>并编写代码来咋代码中表示这一点</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get two integers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;i: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;j: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Compare integers
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> j)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Same</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Different</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，上面的代码从用户那里获取两个整数并进行比较</p>
+<ul>
+<li>但是对于<code>Strings</code>，不能使用<code>==</code> 运算符比较两个字符串</li>
+<li>使用<code>==</code> 运算符尝试比较字符串将尝试比较字符串的内存位置，而不是其中的字符。因此可以使用<code>strcmp</code></li>
+<li>请按如下方式修改代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get two strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;t: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Compare strings&#39; addresses
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> t)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Same</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Different</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，输入两个<code>HI!</code>，仍然会导致<code>Different</code> 的输出</p>
+<ul>
+<li>为什么会这样，因为比较的两个字符串的内存地址，而不是比较其中的字符。可以通过以下内容来直观地说明原因
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/611731eeeb827585bd4bc6b25eb95d0a.png" alt=""></li>
+<li>上面地<code>compare.c</code> 实际上是在比较内存地址是是否相同，而不是字符本身</li>
+<li>使用<code>strcmp</code>, 我们可以纠正我们地代码:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get two strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;t: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Compare strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strcmp</span>(s, t) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Same</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Different</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，如果字符串相同，<code>strcmp</code> 可以返回<code>0</code></p>
+<ul>
+<li>为了进一步说明这两个字符串如果存在与两个位置，可以修改成以下代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get two strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;t: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，我们现在有两个不同的字符串，分别存储在两个不同的地址位置</p>
+<ul>
+<li>只需稍作修改，就能看到这两个字符串存储的地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get two strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;t: &#34;</span>); 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings&#39; addresses
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s); <span style="color:#75715e">//%p 就是pointer代表输出s的地址
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%p</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/431b393216f1b05b1a53a59eb6ff8c82.png" alt=""></p>
+<h4 id="copying">Copying</h4>
+<ul>
+<li>在编程的一个常见需求就是将一个字符串复制到另一个字符串</li>
+<li>创建一个新的<code>copy.c</code> 文件，并编写代码如下</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt; </span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string&#39;s address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string t <span style="color:#f92672">=</span> s;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize first letter in string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print string twice
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，<code>string t = s </code> 将 <code>s</code> 的地址复制到了 <code>t</code>。 这并没有达到我们的目的。字符串并没有被复制，复制的只是地址</p>
+<ul>
+<li>你可以将上述代码可视化成如下</li>
+</ul>
+<p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/be93353d4913c7c005caf5f87caff7b4.png" alt="">
+请注意，<code>s</code>和<code>t</code>仍然指向相同的内存块。这并不是字符串的真实COPY。相反，这两个指针指向的是同一个字符串。</p>
+<ul>
+<li>在解决这个问题之前，我们必须要确保我们的代码不会出现 <em><strong>[[segmentation fault]]</strong></em>， 即将<code>sstring s</code> 复制到 <code>string t</code>中，而<code>string t</code> 并不存在。我们可以使用<code>strlen</code>函数来帮助解决这个问题:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string&#39;s address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string t <span style="color:#f92672">=</span> s;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize first letter in string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strlen</span>(t) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print string twice
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>strlen</code> 是用来确保 <code>string t</code> 是否存在。如果不存在，就不会复制任何内容</p>
+<ul>
+<li>为了能够制作字符串的真实COPY，我们需要引入两个新的构建模块。首先，<code>malloc</code> 允许程序员分配一个特定大小的内存块。其次，<code>free</code>允许你告诉编译器释放之前分配的内存块</li>
+<li>我们可以修改代码，如下所示创建字符串的真实副本(COPY)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Allocate memory for another string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#a6e22e">strlen</span>(s) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string into memory, including &#39;\0&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">strlen</span>(s); i<span style="color:#f92672">++</span>)<span style="color:#75715e">//给字符串末尾的空字符(&#39;\0&#39;)创建空间
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    {
+</span></span><span style="display:flex;"><span>        t[i] <span style="color:#f92672">=</span> s[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize copy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，使用<code>malloc</code> 和 <code>free</code> 确保已经引入<code>stdlib.h</code> 头文件。<code>malloc(strlen(s) + 1 )</code> 创建的内存块长度是字符串<code>s</code> 的长度加1。这样就可以在最终复制的字符串中包含空<code>\0</code> 字符。然后，<code>for</code>循环遍历字符串<code>s</code>，并将每个值赋值到字符串<code>t</code>的相同位置</p>
+<ul>
+<li>原来我们的代码效率不高。修改代码如下:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Allocate memory for another string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#a6e22e">strlen</span>(s) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string into memory, including &#39;\0&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, n <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(s); i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        t[i] <span style="color:#f92672">=</span> s[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize copy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，<code>n = strlen(s)</code> 现在定义在<code>for loop</code> 的左侧。做好不要在<code>for</code> 循环的中间条件中调用不需要的函数，因为它会反复运行。将<code>n = strlen(s)</code> 移到左侧后，函数<code>strlen</code> 只运行一次</p>
+<ul>
+<li>C语言有一个用于复制字符串的内置函数，称为<code>strcpy</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Allocate memory for another string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#a6e22e">strlen</span>(s) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string into memory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">strcpy</span>(t, s);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize copy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，<code>strcpy</code> 所做的工作与之前的<code>for</code> 循环相同</p>
+<ul>
+<li>如果出现问题， <code>get_string</code> 和 <code>malloc</code> 都会返回 <code>NULL</code>， 即内存中的一个特殊值。可以编写以下代码来检查<code>NULL</code> 条件</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get a string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Allocate memory for another string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>t <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#a6e22e">strlen</span>(s) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (t <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Copy string into memory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">strcpy</span>(t, s);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Capitalize copy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">strlen</span>(t) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        t[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">toupper</span>(t[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print strings
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;t: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Free memory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">free</span>(t);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，如果获得的字符串长度为<code>0</code> 或 <em>malloc fails</em>， 则返回<code>NULL</code>。此为，请注意<code>free</code>可以让计算机知道你已经完成了通过<code>malloc</code>创建的内存块，从而告诉编译器释放之前分配的内存块</p>
+<h4 id="malloc-and-valgrind">malloc and Valgrind</h4>
+<ul>
+<li><em>Valgrind</em> 是一款可以检查程序是否存在内存相关问题的工具， 在这些问题中，你使用了<code>malloc</code>。具体来说，它会检查你是否<code>free</code> 分配的所有内存</li>
+<li>以下是<code>memory.c</code>的代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>x <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">72</span>;
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">73</span>;
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">33</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意， 运行该程序不会导致任何错误。虽然<code>malloc</code> 用于为数组分配足够的内存， 但是没有<code>free</code> 释放之前分配的内存块</p>
+<ul>
+<li>
+<p>这个时候输入<code>make memory</code> 然后执行 <code>valgrind ./memory</code>，你就会从 valgrind 收到一份报告，告诉你的程序在哪些地方导致了内存泄漏。 valgrind 显示的一个错误是， 我们试图在数组的第4个位置赋值为<code>33</code>， 但我们只分配了一个大小为<code>3</code> 的数组。另一个错误是我们未释放<code>x</code>
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/6d63cfb99692b091ee2cbbbc4315e13e.png" alt="image.png"></p>
+</li>
+<li>
+<p>可以按照如下方式修改代码</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>x <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">72</span>;
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">73</span>;
+</span></span><span style="display:flex;"><span>    x[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">33</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(x);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>再次运行 valgrind 不会出现内存泄漏
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/df439b490d9b5c2da0cf6c757adb4dc3.png" alt=""></p>
+<h4 id="garbage-values">Garbage Values</h4>
+<ul>
+<li>当你要求编译器提供一个内存块时，并不能保证这个内存块是空的</li>
+<li>你分配的这些内存很有可能之前已经被计算机使用过。因此，你可能会看到 <em>garbage values</em>。 这是因为你获得了一个内存块，但没有对其进行初始化。例如，下面是<code>garbage.c</code>的代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> scores[<span style="color:#ae81ff">1024</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1024</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, scores[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，运行这段代码将为数组分配<code>1024</code>个内存位置，但<code>for</code>循环可能会显示其中并非所有值都是<code>0</code>。如果不将内存块初始化为其他值(如0或其他值)，就有可能产生垃圾值</p>
+<h4 id="pointer-fun-with-binky">Pointer Fun with Binky</h4>
+<ul>
+<li>我们观看<a href="https://www.youtube.com/watch?v=5VnDaHBi8dM">斯坦福大学的一段视频</a>，它帮助我们直观地理解了指针</li>
+</ul>
+<h4 id="swap">Swap</h4>
+<ul>
+<li>在现实世界中， 编程的一个常见需求是交换两个值。当然，如果没有临时的容纳空间，就很难交换两个变量。在实际操作中，你可以输入<code>code swap.c</code> 并编写如下如下代码来了解这种情况(可以在<a href="https://youtu.be/F9-yqoS7b8w?t=5597">Lecture4视频</a>查看</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x is %i, y is %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, x, y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">swap</span>(x, y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x is %i, y is %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, x, y);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意， 这段代码在运行时并不工作。即使在发送到<code>swap</code> 函数后， 数值也不会交换，为什么呢</p>
+<p>当你向函数传递值时，你只是提供了副本。在前几周，我们讨论了作用域的概念。在<code>main</code>函数的大括号<code>{}</code>中创建的<code>x</code>和<code>y</code>值只有<code>main</code>函数的作用域</p>
+<p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/217170d9a70856e81f19fcc6c49682ab.png" alt="">
+注意，全局变量(我们在本课程中没有使用过的)存储在内存的一个位置。不同的函数存储在内存中另一个区域的<code>stack</code>中</p>
+<ul>
+<li>请看下图:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/9f23a3b5178d67904eafad11af2a566e.png" alt="">
+注意， main和swap 有两个独立的内存框架或区域。因此，我们不能简单地将值从一个函数传递给另一个函数来改变它们
+所以，可以使用<code>return</code>语句来返回值。但是在C语言中，不能直接通过<code>return</code>来返回多个值来交换两个变量地值，因为C语言地函数只能返回一个值</li>
+</ul>
+<h5 id="passing-by-reference">passing by reference</h5>
+<p>也就是 <em>passing by pointer</em>，来实现这个功能</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> y <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x is %i, y is %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, x, y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">swap</span>(<span style="color:#f92672">&amp;</span>x, <span style="color:#f92672">&amp;</span>y);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x is %i, y is %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, x, y);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>b)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> tmp <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>a;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>b;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> tmp;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，变量不是通过 <em>value</em> 传递的， 而是通过 <strong>reference</strong> 传递的。也就是说， <code>a</code> 和 <code>b</code> 的地址是提供给函数的。因此，<code>swap</code> 函数可以知道从 主函数 中对实际的<code>a</code> 和 <code>b</code> 进行修改的位置</p>
+<ul>
+<li>可以将形象化如下
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/05/d94241d9e7d8c2e94b0caeefda9b6554.png" alt=""></li>
+</ul>
+<h4 id="overflow">Overflow</h4>
+<ul>
+<li><strong>A heap overflow</strong> 是指内存栈溢出，触及到不该触及的内存区域</li>
+<li><strong>A stack overflow</strong> 是指调用的函数过多，导致可用的内存量溢出</li>
+<li>这两种情况都属于<code>buffer overflows</code></li>
+<li>当我们使用<code>malloc</code> 并向计算机请求内存时，它来自<code>heap</code> 区域</li>
+<li>当你用带有变量的和参数的函数时，就是正在使用<code>stack memory</code></li>
+</ul>
+<h4 id="scanf"><code>scanf</code></h4>
+<ul>
+<li>在CS50中， 我们创建了<code>get_int</code> 等函数来简化从用户获取输入的过程</li>
+<li><code>scanf</code> 是一个内置函数，可以获取用户输入</li>
+<li>我们可以很容易地用<code>scanf</code> 重新实现 <code>get_int</code>的功能</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%i&#34;</span>, <span style="color:#f92672">&amp;</span>x);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;x: %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, x);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>请注意， <code>x</code>的值存储在行<code>scanf(&quot;%i&quot;, &amp;x)</code> 中<code>x</code>的位置</p>
+<ul>
+<li>但是呢，试图重新实现<code>get_string</code> 并不容易</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%s&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>由于字符串比较特殊，所以不需要<code>&amp;</code>。尽管如此，这个程序还是无法运行。在这个程序中，我们没有为字符串分配所需的内存量。事实上，我们并不知道用户可能输入多长的字符串</p>
+<ul>
+<li>此外，代码可以修改如下。不过，我们必须为字符串预分配一定量的内存</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s <span style="color:#f92672">=</span> <span style="color:#a6e22e">malloc</span>(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s <span style="color:#f92672">==</span> NULL)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%s&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">free</span>(s);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果提供的字符串长度为6 <code>bytes</code> ，则可能会出现错误</p>
+<ul>
+<li>将代码简化，我们就能进一步理解预分配这一重要问题:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">4</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scanf</span>(<span style="color:#e6db74">&#34;%s&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;s: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如果我们预分配了一个大小为<code>4</code> 的数组，我们可以输入<code>cat</code> 并执行程序功能。但是，如果字符串大于这个大小，就会产生错误。</p>
+<ul>
+<li>有时，编译器或运行编译器的系统可能会分配比我们指示的更多的内存。但从根本上，上述代码是不安全的。我们不能相信用户输入的字符串会适合我们预先分配的内存</li>
+</ul>
+<h4 id="file-io">File I/O</h4>
+<ul>
+<li>你可以读取和操作文件，下面是<code>phonebook.c</code> 的代码</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Open CSV file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    FILE <span style="color:#f92672">*</span>file <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;phonebook.csv&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get name and number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Name: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>number <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Number: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print to file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fprintf</span>(file, <span style="color:#e6db74">&#34;%s,%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, name, number);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Close file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fclose</span>(file);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，这段代码使用指针访问文件</p>
+<ul>
+<li>你可以运行上面代码前创建一个名为<code>phonebook.csv</code>的文件。运行上述程序并输入姓名和电话号码后，就会发现这些数据一直存在CSV文件中</li>
+<li>如果我们想在运行程序之前确保<code>phonebook.csv</code> 存在，可以对代码作如下修改:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Open CSV file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    FILE <span style="color:#f92672">*</span>file <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(<span style="color:#e6db74">&#34;phonebook.csv&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>file)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get name and number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Name: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>number <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Number: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print to file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fprintf</span>(file, <span style="color:#e6db74">&#34;%s,%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, name, number);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Close file
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fclose</span>(file);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，该程序通过调用<code>return 1</code> 来防止出现<code>NULL</code> 指针</p>
+<ul>
+<li>我们可以通过输入<code>code cp.c </code> 并编写如下代码来实现自己的复制程序:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">uint8_t</span> BYTE;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    FILE <span style="color:#f92672">*</span>src <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(argv[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;rb&#34;</span>);
+</span></span><span style="display:flex;"><span>    FILE <span style="color:#f92672">*</span>dst <span style="color:#f92672">=</span> <span style="color:#a6e22e">fopen</span>(argv[<span style="color:#ae81ff">2</span>], <span style="color:#e6db74">&#34;wb&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    BYTE b;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">fread</span>(<span style="color:#f92672">&amp;</span>b, <span style="color:#66d9ef">sizeof</span>(b), <span style="color:#ae81ff">1</span>, src) <span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fwrite</span>(<span style="color:#f92672">&amp;</span>b, <span style="color:#66d9ef">sizeof</span>(b), <span style="color:#ae81ff">1</span>, dst);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(dst);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fclose</span>(src);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>注意，该文件创建了我们自己的数据类型，称为<code>BYTE</code>，其大小与<code>uint8_t</code> 相同。然后，文件读取<code>BYTE</code> 并将其写入文件</p>
+<h4 id="summing-up">Summing Up</h4>
+<p>在本课中，您将学习指针的相关知识，它为你提供了在特定内存位置访问和操作数据的能力。具体来说，我们深入研究了&hellip;</p>
+<ul>
+<li>Pixel art</li>
+<li>Hexadecimal</li>
+<li>Memory</li>
+<li>Pointers</li>
+<li>Strings</li>
+<li>Pointer Arithmetic</li>
+<li>String Comparison</li>
+<li>Copying</li>
+<li>malloc and Valgrind</li>
+<li>Garbage values</li>
+<li>Swapping</li>
+<li>Overflow</li>
+<li><code>scanf</code></li>
+<li>File I/O</li>
+</ul>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+            <div class="post-tags">
+              <a href="/tags/notes/">
+                Notes
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/input/">
+                Input
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/cs/">
+                CS
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+<div class="related-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/notes/cs50lecture2/">CS50 Lecture 2-Arrays</a></li>
+    
+    <li><a href="/notes/cs50lecture1/">CS50 Lecture 1-C</a></li>
+    
+    <li><a href="/posts/deploy-tomcat-in-docker-and-create-an-image-with-custom-pages/">在Docker中部署Tomcat环境并制作镜像添加自定义页面</a></li>
+    
+  </ul>
+</div>
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>

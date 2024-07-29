@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Hugo 0.126.3">
+
+  <script defer src="https://track.wangzhr.top/script.js" data-website-id="e052b77d-2829-4543-8593-a69852aa810d"></script>
+  <meta name="google-site-verification" content="h_CKtBxxlEvtt7_Vf-Poa8ZfUb_Qz3uhNari58nd76c" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="pseudowang" />
+  <meta property="og:url" content="https://wangzhr.top/notes/cs50lecture2/" />
+  <link rel="canonical" href="https://wangzhr.top/notes/cs50lecture2/" /><link rel="apple-touch-icon" href="/images/avatar.png" />
+  <link rel="icon" href="/images/avatar.png" />
+  <link rel="shortcut" href="/images/avatar.png" /><link rel="alternate" type="application/atom+xml" href="https://wangzhr.top/index.xml" title="Pseudowang">
+
+  <script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/wangzhr.top\/"
+      },
+      "articleSection" : "notes",
+      "name" : "CS50 Lecture 2-Arrays",
+      "headline" : "CS50 Lecture 2-Arrays",
+      "description" : "这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!\nCompiling Encryption is the act of hiding plain text from prying eyes. decrypting,then, is the act of taking an encrypted piece of text and returning it to human-readable form. An encrypted piece of text may look like the following: The compiler, a specialized computer program that converts source code into machine code that can be understood by a computer For Example, you might have a computer program that looks like this: #include \u0026lt;stdio.",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2023",
+      "datePublished": "2023-12-01 12:56:06 \u002b0800 CST",
+      "dateModified" : "2023-12-01 12:56:06 \u002b0800 CST",
+      "url" : "https:\/\/wangzhr.top\/notes\/cs50lecture2\/",
+      "keywords" : [ "Notes","Input","CS", ]
+  }
+</script>
+<title>CS50 Lecture 2-Arrays</title>
+  <meta property="og:title" content="CS50 Lecture 2-Arrays" />
+  <meta property="og:type" content="article" />
+  <meta property="og:description" content="这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!
+Compiling Encryption is the act of hiding plain text from prying eyes. decrypting,then, is the act of taking an encrypted piece of text and returning it to human-readable form. An encrypted piece of text may look like the following: The compiler, a specialized computer program that converts source code into machine code that can be understood by a computer For Example, you might have a computer program that looks like this: #include &amp;lt;stdio." />
+  <meta name="description" content="这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!
+Compiling Encryption is the act of hiding plain text from prying eyes. decrypting,then, is the act of taking an encrypted piece of text and returning it to human-readable form. An encrypted piece of text may look like the following: The compiler, a specialized computer program that converts source code into machine code that can be understood by a computer For Example, you might have a computer program that looks like this: #include &amp;lt;stdio." />
+  <meta property="og:locale" content="en-us" /><meta property="og:image" content="/images/avatar.png" />
+  
+
+  
+    <style>body{background-color:#fff;color:#444;font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif;font-size:100%}h1,h2,h3,h4,h5,h6{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,microsoft yahei,serif}code,pre{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}.highlight pre code{font-family:lxgw wenkai screen,droid serif,Georgia,times new roman,pingfang sc,hiragino sans gb,source han sans cn,wenquanyi micro hei,monospace}article{max-width:800px;margin-left:auto;margin-right:auto}a{color:#000;text-decoration:none}a:hover{font-weight:600;text-decoration:underline}.post-ads{margin:50px 0}.markdown-body{font-size:18px;max-width:100%}.markdown-body a{text-decoration:underline;text-decoration-color:#000}.markdown-body blockquote{margin:0;padding:0 1em;color:#57606a;border-left:.25em solid #d0d7de}.markdown-body pre{padding:16px;overflow:auto;border-radius:10px}.markdown-body code{padding:.2em .4em;font-size:85%;background-color:#f6f8fa;border-radius:6px}.markdown-body pre>code{padding:0;font-size:100%;background-color:inherit;border:0}.Chinese .markdown-body{line-height:200%}.site-date-catalog{font-size:2rem}.header-title{font-size:2rem;font-weight:700;margin-top:32px;font-family:bungee shade,sans-serif}.header-title a{text-decoration:none}.header-subtitle{color:#666}.header-items{margin:10px 0}.header-item{margin:0 5px}.header-line{width:100%;border-width:2px;border-color:#482936;border-style:solid none none none}.lang-switch{font-weight:600}#posts-list{min-height:600px}.posts-line{font-size:1.2rem;margin:12px 0}.posts-categories{font-size:.8rem;margin:auto;text-align:center}.posts-category{padding:3px 0;border:#000 2px solid;border-radius:5px}.site-footer{margin-top:50px}.site-footer-item{margin-right:12px}.post-content img{max-width:100%;display:block;margin-right:auto;margin-top:12px}.post-header{margin-bottom:50px}.post-title{font-size:2rem;font-weight:600}.post-tags{display:inline;font-weight:600;padding:2px 5px;margin-right:6px;border:#000 2px solid;border-radius:5px}.post-date{font-weight:800;font-style:italic}.post-author{float:right;font-weight:600}.page-content{min-height:60%}.post-content{margin-bottom:50px}.post-content p{hyphens:auto;line-height:1.8;text-justify:ideographic;margin-bottom:1em}.related-content{border-width:3px;border-style:solid;border-color:#000;padding:0 10px;margin-bottom:50px;margin-top:100px}.related-content li{margin:5px 0}.taxonomy-term{font-size:1.5rem;text-align:center}.gallery-img{text-align:center}.gallery-img span{text-align:center}.gallery-img-desc{font-size:.8em;font-weight:800}#disqus_thread{position:relative}#disqus_thread:after{content:"";display:block;height:55px;width:100%;position:absolute;bottom:0;background:#fff}@media screen and (max-width:600px){.header-title,.header-subtitle,.header-items{text-align:center}.posts-line{font-size:16px}.markdown-body{font-size:16px}.post-title{font-size:2rem}.post-content p{letter-spacing:.05em}}@media screen and (max-width:48em){.posts-category{display:none}}</style>
+  
+  
+    <style>.container,.container-fluid{margin-right:auto;margin-left:auto}.container-fluid{padding-right:2rem;padding-left:2rem}.row{box-sizing:border-box;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-flex:0;-ms-flex:0 1 auto;flex:initial;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}.row.reverse{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.col.reverse{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.col-xs,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9,.col-xs-offset-0,.col-xs-offset-1,.col-xs-offset-10,.col-xs-offset-11,.col-xs-offset-12,.col-xs-offset-2,.col-xs-offset-3,.col-xs-offset-4,.col-xs-offset-5,.col-xs-offset-6,.col-xs-offset-7,.col-xs-offset-8,.col-xs-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-xs{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-xs-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-xs-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-xs-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-xs-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-xs-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-xs-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-xs-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-xs-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-xs-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-xs-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-xs-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-xs-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-xs-offset-0{margin-left:0}.col-xs-offset-1{margin-left:8.33333333%}.col-xs-offset-2{margin-left:16.66666667%}.col-xs-offset-3{margin-left:25%}.col-xs-offset-4{margin-left:33.33333333%}.col-xs-offset-5{margin-left:41.66666667%}.col-xs-offset-6{margin-left:50%}.col-xs-offset-7{margin-left:58.33333333%}.col-xs-offset-8{margin-left:66.66666667%}.col-xs-offset-9{margin-left:75%}.col-xs-offset-10{margin-left:83.33333333%}.col-xs-offset-11{margin-left:91.66666667%}.start-xs{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-xs{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-xs{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-xs{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-xs{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-xs{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-xs{-ms-flex-pack:distribute;justify-content:space-around}.between-xs{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-xs{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-xs{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}@media only screen and (min-width:48em){.container{width:49rem}.col-sm,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-offset-0,.col-sm-offset-1,.col-sm-offset-10,.col-sm-offset-11,.col-sm-offset-12,.col-sm-offset-2,.col-sm-offset-3,.col-sm-offset-4,.col-sm-offset-5,.col-sm-offset-6,.col-sm-offset-7,.col-sm-offset-8,.col-sm-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-sm{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-sm-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-sm-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-sm-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-sm-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-sm-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-sm-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-sm-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-sm-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-sm-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-sm-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-sm-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-sm-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-sm-offset-0{margin-left:0}.col-sm-offset-1{margin-left:8.33333333%}.col-sm-offset-2{margin-left:16.66666667%}.col-sm-offset-3{margin-left:25%}.col-sm-offset-4{margin-left:33.33333333%}.col-sm-offset-5{margin-left:41.66666667%}.col-sm-offset-6{margin-left:50%}.col-sm-offset-7{margin-left:58.33333333%}.col-sm-offset-8{margin-left:66.66666667%}.col-sm-offset-9{margin-left:75%}.col-sm-offset-10{margin-left:83.33333333%}.col-sm-offset-11{margin-left:91.66666667%}.start-sm{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-sm{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-sm{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-sm{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-sm{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-sm{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-sm{-ms-flex-pack:distribute;justify-content:space-around}.between-sm{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-sm{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-sm{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:64em){.container{width:65rem}.col-md,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-md-offset-0,.col-md-offset-1,.col-md-offset-10,.col-md-offset-11,.col-md-offset-12,.col-md-offset-2,.col-md-offset-3,.col-md-offset-4,.col-md-offset-5,.col-md-offset-6,.col-md-offset-7,.col-md-offset-8,.col-md-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-md{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-md-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-md-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-md-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-md-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-md-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-md-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-md-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-md-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-md-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-md-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-md-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-md-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-md-offset-0{margin-left:0}.col-md-offset-1{margin-left:8.33333333%}.col-md-offset-2{margin-left:16.66666667%}.col-md-offset-3{margin-left:25%}.col-md-offset-4{margin-left:33.33333333%}.col-md-offset-5{margin-left:41.66666667%}.col-md-offset-6{margin-left:50%}.col-md-offset-7{margin-left:58.33333333%}.col-md-offset-8{margin-left:66.66666667%}.col-md-offset-9{margin-left:75%}.col-md-offset-10{margin-left:83.33333333%}.col-md-offset-11{margin-left:91.66666667%}.start-md{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-md{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-md{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-md{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-md{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-md{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-md{-ms-flex-pack:distribute;justify-content:space-around}.between-md{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-md{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-md{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}@media only screen and (min-width:75em){.container{width:76rem}.col-lg,.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-lg-offset-0,.col-lg-offset-1,.col-lg-offset-10,.col-lg-offset-11,.col-lg-offset-12,.col-lg-offset-2,.col-lg-offset-3,.col-lg-offset-4,.col-lg-offset-5,.col-lg-offset-6,.col-lg-offset-7,.col-lg-offset-8,.col-lg-offset-9{box-sizing:border-box;-webkit-box-flex:0;-ms-flex:0 0 auto;flex:none;padding-right:.5rem;padding-left:.5rem}.col-lg{-webkit-box-flex:1;-ms-flex-positive:1;flex-grow:1;-ms-flex-preferred-size:0;flex-basis:0;max-width:100%}.col-lg-1{-ms-flex-preferred-size:8.33333333%;flex-basis:8.33333333%;max-width:8.33333333%}.col-lg-2{-ms-flex-preferred-size:16.66666667%;flex-basis:16.66666667%;max-width:16.66666667%}.col-lg-3{-ms-flex-preferred-size:25%;flex-basis:25%;max-width:25%}.col-lg-4{-ms-flex-preferred-size:33.33333333%;flex-basis:33.33333333%;max-width:33.33333333%}.col-lg-5{-ms-flex-preferred-size:41.66666667%;flex-basis:41.66666667%;max-width:41.66666667%}.col-lg-6{-ms-flex-preferred-size:50%;flex-basis:50%;max-width:50%}.col-lg-7{-ms-flex-preferred-size:58.33333333%;flex-basis:58.33333333%;max-width:58.33333333%}.col-lg-8{-ms-flex-preferred-size:66.66666667%;flex-basis:66.66666667%;max-width:66.66666667%}.col-lg-9{-ms-flex-preferred-size:75%;flex-basis:75%;max-width:75%}.col-lg-10{-ms-flex-preferred-size:83.33333333%;flex-basis:83.33333333%;max-width:83.33333333%}.col-lg-11{-ms-flex-preferred-size:91.66666667%;flex-basis:91.66666667%;max-width:91.66666667%}.col-lg-12{-ms-flex-preferred-size:100%;flex-basis:100%;max-width:100%}.col-lg-offset-0{margin-left:0}.col-lg-offset-1{margin-left:8.33333333%}.col-lg-offset-2{margin-left:16.66666667%}.col-lg-offset-3{margin-left:25%}.col-lg-offset-4{margin-left:33.33333333%}.col-lg-offset-5{margin-left:41.66666667%}.col-lg-offset-6{margin-left:50%}.col-lg-offset-7{margin-left:58.33333333%}.col-lg-offset-8{margin-left:66.66666667%}.col-lg-offset-9{margin-left:75%}.col-lg-offset-10{margin-left:83.33333333%}.col-lg-offset-11{margin-left:91.66666667%}.start-lg{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start;text-align:start}.center-lg{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;text-align:center}.end-lg{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end;text-align:end}.top-lg{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.middle-lg{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.bottom-lg{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.around-lg{-ms-flex-pack:distribute;justify-content:space-around}.between-lg{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.first-lg{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.last-lg{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}}</style>
+  
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css">
+  
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml"
+    title="Pseudowang">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Bungee+Shade" rel="stylesheet">
+  
+  
+
+  
+  
+</head>
+
+
+<body>
+  <article class="post " id="article">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="site-header">
+          
+<header>
+  <div class="header-title">
+    <a href="/"
+      >pseudowang</a
+    >
+  </div>
+  <div class="header-subtitle">记录无用却有趣的事物</div>
+</header>
+<div class="row end-md center-xs header-items">
+  
+  <div class="header-item">
+    <a href="/index.xml" target="_blank">RSS</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/about/index.html" target="_blank">About</a>
+  </div>
+  
+  <div class="header-item">
+    <a href="/daily/index.html" target="_blank">Life</a>
+  </div>
+  
+</div>
+<div class="row end-xs">
+   
+</div>
+<div class="header-line"></div>
+
+        </div>
+        <header class="post-header">
+          <h1 class="post-title">CS50 Lecture 2-Arrays</h1>
+          
+          <div class="row post-desc">
+            <div class="col-xs-6">
+              
+              <time class="post-date" datetime="2023-12-01 12:56:06 CST">
+                2023-12-01
+              </time>
+              
+            </div>
+            <div class="col-xs-6">
+              
+              <div class="post-author">
+                <a target="_blank" href="">@pseudowang</a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </header>
+
+        <div class="post-content markdown-body">
+          
+          <blockquote>
+<p>这仅仅是我个人的学习笔记，没有什么干货，可能会有写错的信息，不推荐观看学习!</p>
+</blockquote>
+<h4 id="compiling">Compiling</h4>
+<ul>
+<li><em>Encryption</em> is the act of hiding plain text from prying eyes. <em>decrypting</em>,then, is the act of taking an encrypted piece of text and returning it to human-readable form.</li>
+<li>An encrypted piece of text may look like the following:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/b14852a8296af92f09e15a9e15e15548.png" alt=""></li>
+<li><em>The compiler</em>, a specialized computer program that converts <em>source code</em> into <em>machine code</em> that can be understood by a computer</li>
+<li>For Example, you might have a computer program that looks like this:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, world</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>
+<p>A compiler will take the above code and turn it into the following machine code:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/af67c5e7499928cbf71c6b674ffb2d66.png" alt=""></p>
+</li>
+<li>
+<p><em>VS Code</em>, the programming environment provided to you as a CS50 student, utilizes a compiler called <code>clang</code> or <em>c language</em>.</p>
+</li>
+<li>
+<p>If you were to type <code>make hello</code>, it runs a command that executes clang to create an output file that you can run as a user.</p>
+</li>
+<li>
+<p>VS Code has been pre-programmed such that <code>make</code> will run numerous command line arguments along with clang for your convenience as a user.</p>
+</li>
+<li>
+<p>Consider the following code:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;What&#39;s your name? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, name);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>You can attempt to enter into the terminal window: <code>clang -o hello hello.c</code>. You will be met by an error that indicates that clang does not know where to find the <code>cs50.h</code> library</li>
+<li>Attempting again to compile this code, run the following command in the terminal window: <code>clang -o hello hello.c -lcs50</code>. This will enable the compiler to access the <code>cs50.h</code> library.</li>
+<li>Running in the terminal window <code>./hello</code>, your program will run as intended.</li>
+<li>While the above is offered as an illustration, such that you can understand more deeply the process and concept of compiling code, using <code>make</code> in CS50 is perfectly fine and the expectation!</li>
+</ul>
+<p>Compiling involves major steps, including the following:</p>
+<ul>
+<li>First, <em>preprocessing</em> is where the header files in your code, designated by a <code>#</code> (such as <code>#include &lt;cs50.h&gt;</code>) are effectively copied and pasted into your file. During this step, the code from <code>cs50.h</code> is copied into your program. Similarly, just as your code contains <code>#include &lt;stdio.h&gt;</code>, code contained within <code>stdio.h</code> somewhere on your computer is copied to your program. This step can be visualized as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>string <span style="color:#a6e22e">get_string</span>(string prompt);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">printf</span>(string format, ...);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;What&#39;s your name? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, name);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Second, <em>compiling</em> is where your program is converted into assembly code. This step can be visualized as follows:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/7758d684d1bc36c11aa5b6e57d8252b6.png" alt=""></li>
+<li>Third, <em>assembling</em> involves the compiler converting your assembly code into machine code. This step can be visualized as follows:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/c0a7498354ddaae6d53fcaf4337879a0.png" alt=""></li>
+<li>Finally, during the <em>linking</em> step, code from your included libraries are converted also into machine code and combined with your code. The final executable file is then outputted.
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/2ef4e3c538f6222db41d3020b33486db.png" alt=""></li>
+</ul>
+<h4 id="debugging">Debugging</h4>
+<ul>
+<li>Everyone will make mistakes while coding</li>
+<li>Further, consider the following code that has a bug purposely inserted within it:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;#</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Type <code>code buggy0.c</code> into the terminal window and write the above code.</li>
+<li><code>printf</code> is a very useful way of debugging your code. You could modify your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;i is %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;#</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Running this code, you will see numerous statements, including <code>i is 0</code>, <code>i is 1</code>, <code>i is 2</code>, and <code>i is 3</code>. Seeing this, you might realize that Further code needs to be corrected as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;#</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>This code can be further improved as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_column</span>(<span style="color:#66d9ef">int</span> height);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> h <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Height: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print_column</span>(h);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print_column</span>(<span style="color:#66d9ef">int</span> height)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> height; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;#</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that compiling and running this code still results in a bug.</p>
+<ul>
+<li>
+<p>A second tool in debugging is called a <em>debugger</em>, a software tool created by programmers to help track down bugs in code.</p>
+</li>
+<li>
+<p>To utilize this debugger, first set a <em>breakpoint</em> by clicking to the left of a line of your code, just to the left of the line number. When you click there, you will see a red dot appearing. Imagine this as a stop sign, asking the compiler to pause such that you can consider what’s happening in this part of your code.
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/39adeb25333cd891ead6e07bf79af279.png" alt=""></p>
+</li>
+<li>
+<p>Second, run <code>debug50 ./buggy0</code>. You will notice that after the debugger comes to life that a line of your code will illuminate in a gold-like color. Quite literally, the code has <em>paused</em> at this line of code. Notice in the top left corner how all local variables are being displayed, including <code>h</code>, which has a current does not have a value. At the top of your window, you can click the <code>step over</code> button and it will keep moving through your code. Notice how the value of <code>h</code> increases.</p>
+</li>
+<li>
+<p>While this tool will not show you where your bug is, it will help you slow down and see how your code is running step by step. You can use <code>step into</code> as a way to look further into the details of your buggy code.</p>
+</li>
+</ul>
+<h4 id="arrays">Arrays</h4>
+<ul>
+<li>
+<p>In Week 0,we talked about data types such as <code>bool</code>, <code>int</code>, <code>char</code>, <code>string</code>, etc</p>
+</li>
+<li>
+<p>Each data type requires a certain amount of system resources:</p>
+<ul>
+<li><code>bool</code> 1 byte</li>
+<li><code>int</code> 4bytes</li>
+<li><code>long</code> 8 bytes</li>
+<li><code>float</code> 4 bytes</li>
+<li><code>double</code> 8 bytes</li>
+<li><code>char</code> 1 byte</li>
+<li><code>string</code> ? bytes</li>
+</ul>
+</li>
+<li>
+<p>Inside of your computer, you have a finite amount of memory available.
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/e71e71533ff5067d0c97e5e43f8c90c9.png" alt=""></p>
+</li>
+<li>
+<p>Physically, on the memory of your computer, you can imagine how specific types of data are stored on your computer. You might imagine that a <code>char</code>, which only requires 1 byte of memory, may look as follows:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/6b8fd135684cf290f5f18baa568dd429.png" alt=""></p>
+</li>
+<li>
+<p>Similarly, an <code>int</code>, which requires 4 bytes might look as follows:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/aff7e6e499f12c9c9cf3dca7c44bd395.png" alt=""></p>
+</li>
+<li>
+<p>We can create a program that explores these concepts. Inside your terminal, type <code>code scores.c</code> and write code as follows:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Scores
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> score1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">72</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> score2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">73</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> score3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">33</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print average
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Average: %f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, (score1 <span style="color:#f92672">+</span> score2 <span style="color:#f92672">+</span> score3) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that the number on the right is a floating point value of <code>3.0</code>, such that the calculation is rendered as a floating point value in the end</p>
+<ul>
+<li>Running <code>make scores</code>, the program runs.</li>
+<li>You can imagine how these variables are stored in memory:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/7448d4cfd4d38e8f266ebe9e5bdd9047.png" alt=""></li>
+<li><em>Arrays</em> are a way of storing data back-to-back in memory such that this data is easily accessible.</li>
+<li><code>int scores[3]</code> is a way of telling the compiler to provide you three back-to-back places in memory of size <code>int</code> to store three <code>scores</code>. Considering our program, you can revise your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get scores
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> scores[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>    scores[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Score: &#34;</span>);
+</span></span><span style="display:flex;"><span>    scores[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Score: &#34;</span>);
+</span></span><span style="display:flex;"><span>    scores[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Score: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print average
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Average: %f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, (scores[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> scores[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> scores[<span style="color:#ae81ff">2</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that <code>score[0]</code> examines the value at this location of memory by <code>indexing into</code> the array called <code>scores</code> at location <code>0</code> to see what value is stored there.</p>
+<ul>
+<li>You can see how while the above code works, there is still an opportunity for improving our code. Revise your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get scores
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> scores[<span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        scores[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Score: &#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print average
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Average: %f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, (scores[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> scores[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> scores[<span style="color:#ae81ff">2</span>]) <span style="color:#f92672">/</span> <span style="color:#ae81ff">3.0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice how we index into <code>scores</code> by using <code>scores[i]</code> where <code>i</code> is supplied by the <code>for</code> loop.</p>
+<ul>
+<li>We can simplify or <em>abstract away</em> the calculation of the average. Modify your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Constant
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> N <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Prototype
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">float</span> <span style="color:#a6e22e">average</span>(<span style="color:#66d9ef">int</span> length, <span style="color:#66d9ef">int</span> array[]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Get scores
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> scores[N];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> N; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        scores[i] <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_int</span>(<span style="color:#e6db74">&#34;Score: &#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Print average
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Average: %f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#a6e22e">average</span>(N, scores));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">float</span> <span style="color:#a6e22e">average</span>(<span style="color:#66d9ef">int</span> length, <span style="color:#66d9ef">int</span> array[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Calculate average
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> length; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">+=</span> array[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum <span style="color:#f92672">/</span> (<span style="color:#66d9ef">float</span>) length;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that a new function called <code>average</code> is declared. Further, notice that a <code>const</code> or constant value of <code>N</code> is declared. Most importantly, notice how the <code>average</code> function takes <code>int array[]</code>, which means that the compiler passes an array to this function.</p>
+<ul>
+<li>Not only can arrays be containers: They can be passed between functions.</li>
+</ul>
+<h4 id="strings">Strings</h4>
+<ul>
+<li>A <code>string</code> is simply an array of variables of type <code>char</code>: an array of characters.</li>
+<li>Considering the following image, you can see how a string is an array of characters that begins with the first character and ends with a special character called a <code>NUL character</code>:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/1a63763ca60f4303ed4ca6fcfdfdc988.png" alt=""></li>
+<li>Imagining this in decimal, your array would look like the following(ASCII values):
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/c3c0e222d85a98ddea435fc2f8cfd4e5.png" alt=""></li>
+<li>Implementing this in your own code, type <code>code hi.c</code> in the terminal window and write code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;H&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;!&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c%c%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, c1, c2, c3);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this will output a string of characters.</p>
+<ul>
+<li>Similarly, make the following modification to your code:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;H&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;I&#39;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span> c3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;!&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i %i %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, c1, c2, c3);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that that ASCII codes are printed by replacing <code>%c</code> with <code>%i</code>.</p>
+<ul>
+<li>To further understand how a <code>string</code> works, revise your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c%c%c</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s[<span style="color:#ae81ff">0</span>], s[<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice how the <code>printf</code> statement presents three values from our array called <code>s</code>.</p>
+<ul>
+<li>As before, we can replace <code>%c</code> with <code>%i</code> as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i %i %i %i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s[<span style="color:#ae81ff">0</span>], s[<span style="color:#ae81ff">1</span>], s[<span style="color:#ae81ff">2</span>], s[<span style="color:#ae81ff">3</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this prints the string’s ASCII codes, including NUL.</p>
+<ul>
+<li>Let’s imagine we want to say both <code>HI!</code> and <code>BYE!</code>. Modify your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    string t <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BYE!&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, s);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, t);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that two strings are declared and used in this example.</p>
+<ul>
+<li>
+<p>You can visualize this as follow:
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/01/f135849e292772f3d824dcb6a64b520a.png" alt=""></p>
+</li>
+<li>
+<p>We can further improve this code. Modify your code as follows:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string words[<span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    words[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;HI!&#34;</span>;
+</span></span><span style="display:flex;"><span>    words[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;BYE!&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, words[<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, words[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that both strings are stored within a single array of type <code>string</code>.</p>
+<h4 id="string-length">String Length</h4>
+<ul>
+<li>A common problem within programming, and perhaps C more specifically, is to discover the length of an array. How could we implement this in code? Type <code>code length.c</code> in the terminal window and code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Prompt for user&#39;s name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Name: &#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Count number of characters up until &#39;\0&#39; (aka NUL)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (name[n] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\0&#39;</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, n);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this code loops until the <code>NUL</code> character is found.</p>
+<ul>
+<li>This code can ben improved by abstracting away the counting as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">string_length</span>(string s);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Prompt for user&#39;s name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Name: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> <span style="color:#a6e22e">string_length</span>(name);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">string_length</span>(string s)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Count number of characters up until &#39;\0&#39; (aka NUL)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (s[n] <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;\0&#39;</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        n<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Since this is such a common problem within programming, other programmers have created code in the <code>string.h</code> library to find the length of a string. You can find the length of a string by modifying your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Prompt for user&#39;s name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string name <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Name: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> length <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(name);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%i</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, length);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this code uses the <code>string.h</code> library, declared at the top of the file. Further, it uses a function from that library called <code>strlen</code>, which calculates the length of the string passed to it.</p>
+<ul>
+<li><code>ctype.h</code> is another library that is quite useful. Imagine we wanted to create a program that converted all lowercase characters to uppercase ones. In the terminal window type <code>code uppercase.c</code> and write code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Before: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;After:  &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, n <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(s); i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (s[i] <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> s[i] <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;z&#39;</span>)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, s[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, s[i]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this code <em>iterates</em> through each value in the string. The program looks at each character. If the character is lowercase, it subtracts the value 32 from it to convert it to uppercase.</p>
+<ul>
+<li>Recalling our previous work from last week, you might remember this ASCII values chart:</li>
+</ul>
+<h5 id="the-ascii-values-chart">The ASCII values chart</h5>
+<p><img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/02/e1b84bccddc52e66a89d921b904b8a47.png" alt=""></p>
+<ul>
+<li>When a lowercase character has <code>32</code> subtracted from it, it results in an uppercase version of that same character.</li>
+<li>While the program does what we want, there is an easier way using the <code>ctype.h</code> library. Modify your program as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Before: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;After:  &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, n <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(s); i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">islower</span>(s[i]))
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#a6e22e">toupper</span>(s[i]));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, s[i]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that the program iterates through each character of the string. The <code>toupper</code> function is passed <code>s[i]</code>. Each character (if lowercase) is converted to uppercase.</p>
+<ul>
+<li>It’s worth mentioning that <code>toupper</code> automatically knows to uppercase only lowercase characters. Hence, your code can be simplified as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string s <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;Before: &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;After:  &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, n <span style="color:#f92672">=</span> <span style="color:#a6e22e">strlen</span>(s); i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;%c&#34;</span>, <span style="color:#a6e22e">toupper</span>(s[i]));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this code uppercases a string using the <code>ctype</code> library.</p>
+<ul>
+<li>You can read about all the capabilities of the <code>ctype</code> library on the <a href="https://manual.cs50.io/#ctype.h">Manual Pages</a>.</li>
+</ul>
+<h4 id="command-line-arguments">Command-Line Arguments</h4>
+<ul>
+<li><code>Command-line arguments</code> are those arguments that are passed to your program at the command line. For example, all those statements you typed after <code>clang</code> are considered command line arguments. You can use these arguments in your own programs!</li>
+<li>In your terminal window, type <code>code greet.c</code> and write code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    string answer <span style="color:#f92672">=</span> <span style="color:#a6e22e">get_string</span>(<span style="color:#e6db74">&#34;What&#39;s your name? &#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, answer);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this says <code>hello</code> to the user.</p>
+<ul>
+<li>Still, would it not be nice to be able to take arguments before the program even runs? Modify your code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, string argv[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, world</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that this program knows both <code>argc</code>, the number of command line arguments, and <code>argv</code> which is an array of the characters passed as arguments at the command line.</p>
+<ul>
+<li>Therefore, using the syntax of this program, executing <code>./greet David</code> would result in the program saying <code>hello, David</code>.
+<code>int argc</code> 是一个整数变量，代表了命令行参数的数量，包括程序名称本身。</li>
+</ul>
+<p><code>string argv[]</code> 是一个字符串数组，用来存储命令行参数的值，其中 <code>argv[0]</code> 存储程序的名称，<code>argv[1]</code> 存储第一个参数，<code>argv[2]</code> 存储第二个参数，以此类推。</p>
+<h4 id="exit-status">Exit Status</h4>
+<ul>
+<li>When a program ends, a special exit code is provided to the computer.</li>
+<li>When a program exits without error, a status code of <code>0</code> is provided the computer. Often, when an error occurs that results in the program ending, a status of <code>1</code> is provided by the computer.</li>
+<li>You could write a program as follows that illustrates this by typing <code>code status.c</code> and writing code as follows:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cs50.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, string argv[])
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;Missing command-line argument</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printf</span>(<span style="color:#e6db74">&#34;hello, %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Notice that if you fail to provide <code>./status David</code>, you will get an exit status of <code>1</code>. However, if you do provide <code>./status David</code>, you will get an exit status of <code>0</code>.</p>
+<ul>
+<li>You can imagine how you might use portions of the above program to check if a user provided the correct number of command-line arguments.</li>
+</ul>
+<h4 id="cryptography">Cryptography</h4>
+<ul>
+<li>Cryptography is the art of ciphering and deciphering a message.</li>
+<li><code>plaintext</code> and a <code>key</code> are provided to a <code>cipher</code>, resulting in ciphered text.
+<img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/03/7d44ce81bf31afa7606644d73a991fa0.png" alt=""></li>
+<li>The key is a special argument passed to the cipher along with the plaintext. The cipher uses the key to make decisions about how to implement its cipher algorithm.s</li>
+</ul>
+<h4 id="summing-uphttpscs50harvardedux2024notes2summing-up"><a href="https://cs50.harvard.edu/x/2024/notes/2/#summing-up">Summing Up</a></h4>
+<p>In this lesson, you learned more details about compiling and how data is stored within a computer. Specifically, you learned…</p>
+<ul>
+<li>Generally, how a compiler works.</li>
+<li>How to debug your code using four methods.</li>
+<li>How to utilize arrays within your code.</li>
+<li>How arrays store data in back to back portions of memory.</li>
+<li>How strings are simply arrays of characters.</li>
+<li>How to interact with arrays in your code.</li>
+<li>How command-line arguments can be passed to your programs.</li>
+<li>The basic building-blocks of cryptography.</li>
+</ul>
+
+        </div>
+
+        <div class="row middle-xs">
+          <div class="col-xs-12">
+            
+            <div class="post-tags">
+              <a href="/tags/notes/">
+                Notes
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/input/">
+                Input
+              </a>
+            </div>
+            
+            <div class="post-tags">
+              <a href="/tags/cs/">
+                CS
+              </a>
+            </div>
+            
+          </div>
+        </div>
+        
+          <div class="row">
+            <div class="col-xs-12">
+              
+            </div>
+          </div>
+
+          
+
+<div class="related-content">
+  <h3>Related Posts</h3>
+  <ul>
+    
+    <li><a href="/notes/cs50lecture1/">CS50 Lecture 1-C</a></li>
+    
+    <li><a href="/posts/deploy-rss-service-on-the-server/">在服务器部署RSS服务</a></li>
+    
+    <li><a href="/posts/configuring-offline-yum-repository-for-centos/">Centos配置离线yum源</a></li>
+    
+  </ul>
+</div>
+
+
+
+          
+          
+          <div style="height: 50px;"></div>
+          
+        
+
+        <div class="site-footer">
+  
+  
+</div>
+
+      </div>
+    </div>
+  </article>
+
+  
+
+<script>
+  
+  
+    
+    
+  
+</script>
+
+  
+
+</body>
+
+</html>

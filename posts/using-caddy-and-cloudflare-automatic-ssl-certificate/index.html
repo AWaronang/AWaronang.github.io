@@ -171,12 +171,12 @@ caddy 没有报错的话就是安装成功了
 <p><code>systemctl start caddy</code>： 会将 Caddy 作为一个系统服务来启动。通过 systemctl 启动的服务可以由系统自动管理，包括在系统启动时自动启动、记录日志、监控状态等</p>
 </li>
 </ol>
-<p>我这里用的是<code>caddy run</code> 以及 <code>caddy start</code> 等。Caddy 也有 <a href="https://caddyserver.com/docs/command-line">Command Line</a>来解释每个命令的作用和意思</p>
+<p>我这里用的是<code>caddy run</code> 以及 <code>caddy start</code> 等。Caddy 也有 <a href="https://caddyserver.com/docs/command-line">Command Line</a>页面来解释每个命令的作用和意思</p>
 <p>如果你打算用 Caddy 自带的服务管理框架的时候，你运行<code>caddy start</code>或者<code>caddy run</code> 的时候可能会碰到一下报错
 <img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/841744f791e0fc832deb0bebec4127fe.png" alt="image.png">
 我猜测是 <code>systemctl</code> 已经启动了 caddy 服务，使用 Caddy 自带的服务管理框架启动的时候，因为<code>systemctl</code> 已经启动了caddy服务， 所以将caddy的 API 端口给占用了，所以我们只需要<code>netstat -tulp | grep 2019</code>，找到占用的进程号
 <img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/e82fcae684e789a83327616a41dca7ba.png" alt="image.png">
-然后使用<code>kill -9 2804</code> 将它 kill 掉</p>
+然后使用<code>kill -9 2804</code> 将它 kill 掉(2804是我的进程号，这里要改成自己的)</p>
 <p>这个时候我们再使用<code>caddy start</code> 就不会报错咯
 <img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/bf7fdc88b904f712f38ee8bbc3c09d53.png" alt="image.png"></p>
 <p>然后可以直接通过 IP 在浏览器中访问的到网页
@@ -195,14 +195,14 @@ caddy 没有报错的话就是安装成功了
 <blockquote>
 <p>[NON-STANDARD]此模块不随 Caddy 一同提供。您可以通过使用 xcaddy 或我们的下载页面添加它。非标准模块可能由社区开发，并不受 Caddy 项目的官方支持或维护。</p>
 </blockquote>
-<p><strong>Custom builds:****<a href="https://github.com/caddy-dns/cloudflare">https://github.com/caddy-dns/cloudflare</a></strong>
-<strong>Custom builds：</strong> <code>xcaddy build --with github.com/caddy-dns/cloudflare</code></p>
+<p><strong>Custom builds:</strong><a href="https://github.com/caddy-dns/cloudflare">https://github.com/caddy-dns/cloudflare</a></p>
+<p><strong>Custom builds：</strong> <code>xcaddy build --with github.com/caddy-dns/cloudflare</code></p>
 <h4 id="go的安装">Go的安装</h4>
 <p>选择好自己的系统，右键复制地址
 <img src="https://wangzhrbuckets.s3.bitiful.net/picture/2024/07/4bee027316a1bca1a2750cbe5d1f9ddf.png" alt="image.png"></p>
 <p>回到终端中执行</p>
-<pre tabindex="0"><code class="language-wget" data-lang="wget">wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz #后面为你刚刚在浏览器中复制的地址
-</code></pre><ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://go.dev/dl/go1.22.5.linux-amd64.tar.gz <span style="color:#75715e">#后面为你刚刚在浏览器中复制的地址</span>
+</span></span></code></pre></div><ol>
 <li>删除之前的Go 安装文件已经将刚刚下载好的包解压到 /usr/local</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> rm -rf /usr/local/go <span style="color:#f92672">&amp;&amp;</span> tar -C /usr/local -xzf go1.22.5.linux-amd64.tar.gz
