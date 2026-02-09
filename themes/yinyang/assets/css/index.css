@@ -6,26 +6,37 @@
   margin: 0 20px;
 } */
 
-
 body {
-    background-color: #FFF;
-    color: #444;
-    font-family: "LXGW WenKai Screen","Droid Serif",Georgia,"Times New Roman","PingFang SC","Hiragino Sans GB","Source Han Sans CN","WenQuanYi Micro Hei","Microsoft Yahei",serif;
-    font-size: 100%;
+  background-color: #fff;
+  color: #444;
+  font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman",
+    "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+    "WenQuanYi Micro Hei", "Microsoft Yahei", serif;
+  font-size: 100%;
 }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: "LXGW WenKai Screen","Droid Serif",Georgia,"Times New Roman","PingFang SC","Hiragino Sans GB","Source Han Sans CN","WenQuanYi Micro Hei","Microsoft Yahei",serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman",
+    "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+    "WenQuanYi Micro Hei", "Microsoft Yahei", serif;
 }
 
-code, pre {
-    font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "WenQuanYi Micro Hei", monospace;
+code,
+pre {
+  font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman",
+    "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+    "WenQuanYi Micro Hei", monospace;
 }
 .highlight pre code {
-    font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "WenQuanYi Micro Hei", monospace;
+  font-family: "LXGW WenKai Screen", "Droid Serif", Georgia, "Times New Roman",
+    "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN",
+    "WenQuanYi Micro Hei", monospace;
 }
-
-
 
 /* 动态大纲样式 - 左侧固定，默认隐藏内容，鼠标悬停时显示 */
 .dynamic-outline-fixed {
@@ -35,7 +46,7 @@ code, pre {
   width: 40px; /* 默认宽度较窄 */
   background-color: rgba(248, 249, 250, 0.9); /* 浅色背景 */
   border-radius: 5px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   font-size: 0.85rem;
   transition: all 0.3s ease;
@@ -120,12 +131,24 @@ code, pre {
   line-height: 1.4;
 }
 
-.outline-item.level-1 { padding-left: 0; }
-.outline-item.level-2 { padding-left: 8px; }
-.outline-item.level-3 { padding-left: 16px; }
-.outline-item.level-4 { padding-left: 24px; }
-.outline-item.level-5 { padding-left: 32px; }
-.outline-item.level-6 { padding-left: 40px; }
+.outline-item.level-1 {
+  padding-left: 0;
+}
+.outline-item.level-2 {
+  padding-left: 8px;
+}
+.outline-item.level-3 {
+  padding-left: 16px;
+}
+.outline-item.level-4 {
+  padding-left: 24px;
+}
+.outline-item.level-5 {
+  padding-left: 32px;
+}
+.outline-item.level-6 {
+  padding-left: 40px;
+}
 
 .outline-link {
   color: #555;
@@ -403,7 +426,7 @@ thead, t h, td, tr {
 }
 
 .post-comments {
-  max-height: none ;
+  max-height: none;
   overflow-y: auto;
   border: 0px solid #ddd;
   padding: 9px;
