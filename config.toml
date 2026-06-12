@@ -34,7 +34,7 @@ favicon = "/images/avatar.png"
 name = "Pseudowang"
 mainSections = ["posts", "daily", "notes", "books"]
 description = "记录无用却有趣的事物"
-cusdis = true
+cusdis = false
 # disqus = 'pseudowang' 
 
 [[params.author]]
