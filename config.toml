@@ -32,7 +32,8 @@ rssFullContent = true
 extraHead = ''
 favicon = "/images/avatar.png"
 name = "Pseudowang"
-mainSections = ["posts", "daily", "notes", "books"]
+# mainSections = ["posts", "daily", "notes", "books"]
+mainSections = ["posts", "notes"]
 description = "记录无用却有趣的事物"
 cusdis = false
 # disqus = 'pseudowang' 
@@ -55,4 +56,4 @@ link = "/about/index.html"
 
 [[params.socials]]
 name = "Life"
-link = "/daily/index.html"
+link = "/life/index.html"
